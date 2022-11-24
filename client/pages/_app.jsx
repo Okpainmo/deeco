@@ -1,8 +1,13 @@
+import React from 'react';
 import '../styles/globals.css';
-// import type { AppProps } from 'next/app'
+import CartContextProvider from '../context/CartContext';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <CartContextProvider>
+      <Component {...pageProps} />
+    </CartContextProvider>
+  );
 }
 
 export default MyApp;

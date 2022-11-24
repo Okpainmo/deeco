@@ -1,3 +1,155 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 
+=========================
+general project resets
+=========================
+*/
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 
+============================
+google font-customization 
+============================
+*/
+
+@layer utilities {
+  .poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .nunito-sans {
+    font-family: 'Nunito Sans', sans-serif;
+  }
+
+  .montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+@layer utilities {
+  /* 
+=========================================================
+colour configuration using native tailwind css colours
+=========================================================
+*/
+
+  /** customized texts **/
+
+  .text--colors_default {
+    @apply text-black dark:text-white;
+  }
+
+  .text--colors_primary {
+    @apply text-purple-900 dark:text-purple-600;
+  }
+
+  .text--colors_secondary {
+    @apply text-gray-400 dark:text-gray-100;
+  }
+
+  .gain-alert-color {
+    @apply text-green-600;
+  }
+
+  .loss-alert-color {
+    @apply text-red-600;
+  }
+
+  .nav-link-colors {
+    @apply text-purple-900 dark:text-white;
+  }
+
+  /** customized buttons **/
+
+  .btn--colors_regular {
+    @apply bg-purple-900 dark:bg-purple-600 text-white;
+  }
+
+  .btn--colors_rounded {
+    @apply border-purple-900 dark:border-purple-600 bg-purple-50;
+  }
+
+  /** customized backgrounds **/
+
+  .bg--default {
+    @apply bg-white dark:bg-slate-900;
+  }
+
+  .bg--secondary {
+    @apply bg-gray-400 dark:bg-gray-100;
+  }
+
+  /** customized input **/
+
+  .custom--input {
+    @apply bg-gray-200 dark:bg-gray-50;
+  }
+
+  /* 
+===================================================================================
+custom styles configured withing the layer directive to aid/provide re-usability
+===================================================================================
+*/
+
+  .trans--bg_light {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .trans--bg_dark {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* 
+=================
+regular styles
+=================
+*/
+
+.bg--glass {
+  @apply trans--bg_light dark:trans--bg_dark;
+  backdrop-filter: blur(15px);
+}
+
+.nav--slide-in {
+  transform: translateX(0);
+  transition: transform 0.5s ease;
+}
+
+.nav--slide-out {
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+@keyframes loader-anim {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.preloader {
+  animation-name: loader-anim;
+  animation-duration: 1.75s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+}
