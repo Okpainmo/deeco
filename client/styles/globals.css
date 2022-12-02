@@ -52,16 +52,24 @@ colour configuration using native tailwind css colours
 
   /** customized texts **/
 
+  .text--dark {
+    @apply text-slate-800 dark:text-slate-400;
+  }
+
   .text--colors_default {
     @apply text-black dark:text-white;
   }
 
+  .text--colors_default-invert {
+    @apply text-white dark:text-black;
+  }
+
   .text--colors_primary {
-    @apply text-purple-900 dark:text-purple-600;
+    @apply text-blue-700 dark:text-blue-400;
   }
 
   .text--colors_secondary {
-    @apply text-gray-400 dark:text-gray-100;
+    @apply text-gray-700 dark:text-gray-100;
   }
 
   .gain-alert-color {
@@ -79,17 +87,39 @@ colour configuration using native tailwind css colours
   /** customized buttons **/
 
   .btn--colors_regular {
-    @apply bg-purple-900 dark:bg-purple-600 text-white;
+    @apply bg-pink-500 dark:bg-pink-300;
+  }
+
+  .btn--colors_outline {
+    @apply border-pink-500 dark:border-pink-300 text-pink-500 dark:text-pink-300;
   }
 
   .btn--colors_rounded {
-    @apply border-purple-900 dark:border-purple-600 bg-purple-50;
+    @apply border-blue-700 dark:border-blue-400 bg-purple-50;
+  }
+
+  /** customized brand/logo colors **/
+
+  .brand--colors {
+    @apply text-slate-800 dark:text-white border-slate-800 dark:border-white;
+  }
+
+  .brand--colors_invert {
+    @apply dark:text-slate-900 text-white dark:border-slate-900 border-white;
   }
 
   /** customized backgrounds **/
 
   .bg--default {
     @apply bg-white dark:bg-slate-900;
+  }
+
+  .bg--purple {
+    @apply bg-purple-600 dark:bg-purple-300;
+  }
+
+  .bg--blue {
+    @apply bg-blue-400 dark:bg-blue-200;
   }
 
   .bg--secondary {
@@ -99,7 +129,7 @@ colour configuration using native tailwind css colours
   /** customized input **/
 
   .custom--input {
-    @apply bg-gray-200 dark:bg-gray-50;
+    @apply bg-white dark:bg-slate-700;
   }
 
   /* 
@@ -122,6 +152,30 @@ custom styles configured withing the layer directive to aid/provide re-usability
 regular styles
 =================
 */
+
+.error-page-parent {
+  background-image: url(../assets/images/dpic-2.jpg);
+}
+
+.landing-page_hero-section {
+  background-image: url(../assets/images/dpic-2.jpg);
+  background-size: cover;
+  /* animation-name: landing-page_hero-animation;
+  animation-timing-function: ease;
+  animation-duration: 120s; */
+}
+
+@keyframes landing-page_hero-animation {
+  0% {
+    background-image: url(../assets/images/dpic-1.jpg);
+  }
+  50% {
+    background-image: url(../assets/images/dpic-2.jpg);
+  }
+  100% {
+    background-image: url(../assets/images/dpic-3.jpg);
+  }
+}
 
 .bg--glass {
   @apply trans--bg_light dark:trans--bg_dark;
@@ -152,4 +206,12 @@ regular styles
   animation-duration: 1.75s;
   animation-timing-function: ease;
   animation-iteration-count: infinite;
+}
+
+.cart-counter-bg {
+  @apply bg-pink-500 dark:bg-pink-300;
+}
+
+.sticky-nav-btn-colors {
+  @apply bg-pink-600 dark:bg-pink-200;
 }
