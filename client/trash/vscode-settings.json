@@ -1,0 +1,47 @@
+{
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "editor.find.autoFindInSelection": "always",
+  "git.autofetch": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "postcss": "css"
+  },
+  // "liveServer.settings.donotShowInfoMsg": true,
+  // "liveServer.settings.CustomBrowser": "chrome",
+  // "liveSassCompile.settings.formats": [
+  //   {
+  //     "format": "expanded",
+  //     "extensionName": ".css",
+  //     "savePath": "/Dist/Styles"
+  //   }
+  // ],
+  // "liveServer.settings.NoBrowser": true,
+  // "liveServer.settings.donotVerifyTags": true,
+  "editor.formatOnType": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "vsicons.presets.nestjs": true,
+  "vsicons.presets.jsonOfficial": true,
+  "vsicons.presets.jsOfficial": true,
+  "prettier.singleQuote": true,
+  "git.terminalAuthentication": false,
+  "git.confirmSync": false,
+  "bracket-pair-colorizer-2.depreciation-notice": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "css.lint.unknownAtRules": "ignore",
+  "editor.matchBrackets": "always",
+  "editor.guides.bracketPairs": true,
+  "prettier.jsxSingleQuote": true,
+  "hardhat.telemetry": true,
+  "[solidity]": {
+    "editor.defaultFormatter": "NomicFoundation.hardhat-solidity"
+    // "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
