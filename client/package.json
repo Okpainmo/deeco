@@ -8,6 +8,7 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
+    "firebase": "^9.14.0",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -28,7 +29,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "husky": "^8.0.2",
     "postcss": "^8.4.18",
     "prettier": "2.7.1",
     "tailwindcss": "^3.2.1",
