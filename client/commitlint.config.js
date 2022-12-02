@@ -19,7 +19,8 @@ module.exports = {
         'test',
         'bulk',
         'delete',
-        'assets'
+        'assets',
+        'progress'
       ]
     ]
   }
