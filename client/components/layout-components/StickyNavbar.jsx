@@ -8,6 +8,11 @@ function StickyNavbar() {
   const { dbCart } = useContext(CartContext);
   const { connect, connectionStatus } = useContext(ContractContext);
 
+  // async function getUserWalletAddress() {
+  //   const userWalletAddress = await window.ethereum.request({ method: 'eth_accounts' });
+  //   return userWalletAddress;
+  // }
+
   // console.log(dbCart);
 
   return (
@@ -62,7 +67,12 @@ function StickyNavbar() {
           </svg>
         </div>
       </section>
-      <section className="sticky-nav-right">
+      <section className="sticky-nav-right flex items-center gap-4">
+        <Link href="/admin">
+          <div className="underline text--colors_default-invert text-[12px] hidden">
+            admin dashboard
+          </div>
+        </Link>
         <Link href="/cart" className="cart relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
