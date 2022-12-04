@@ -11,12 +11,12 @@ import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyBV8jUKICCa2f_rDXQe8B6leZfj4LDROo4',
-  authDomain: 'deeco-test-3.firebaseapp.com',
-  projectId: 'deeco-test-3',
-  storageBucket: 'deeco-test-3.appspot.com',
-  messagingSenderId: '32424368104',
-  appId: '1:32424368104:web:04aad7c3cfdbad0ef7b65d'
+  apiKey: 'AIzaSyDPg10xtYCXrjrLseOgfMIITqto1r_Gzac',
+  authDomain: 'deeco-test-5.firebaseapp.com',
+  projectId: 'deeco-test-5',
+  storageBucket: 'deeco-test-5.appspot.com',
+  messagingSenderId: '147102941651',
+  appId: '1:147102941651:web:139a78b6514cec6c686f26'
 
   // apiKey: process.env.TILO_FIREBASE_API_KEY,
   // authDomain: process.env.TILO_FIREBASE_AUTH_DOMAIN,
