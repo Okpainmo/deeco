@@ -12,7 +12,7 @@ function Cart() {
   if (dbCart && dbCart.length === 0) {
     return (
       <MainAppLayout>
-        <div className="font-bold pt-40 min-h-[600px] text-2xl text--colors_primary text-center">
+        <div className="animate-pulse font-bold pt-40 min-h-[600px] text-2xl text--colors_primary text-center">
           Opps!!! <br />
           it seems Your Cart is Empty
         </div>

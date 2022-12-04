@@ -1,19 +1,27 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import { ethers } from 'ethers';
+import { doc, collection, addDoc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
 import Footer from '../components/layout-components/Footer';
 import { CartContext } from '../context/CartContext';
 import { ContractContext } from '../context/ContractContext';
+import { abi } from '../constants';
 
 const DynamicThemeSwitcher = dynamic(() => import('../components/ThemeSwitcher'), {
   ssr: false
 });
 
 function Checkout({ product, allCountriesData }) {
-  const { dbCart } = useContext(CartContext);
+  const { dbCart, setOrderSuccess } = useContext(CartContext);
   const { checkMetamaskAccount } = useContext(ContractContext);
-  const [initialTotalPrice, setInitialTotalPrice] = useState(0);
+  const contractAddress = '0x68bff6eb5c041a4ea8e45795af3554ba65aa3ce0';
+  const router = useRouter();
+
+  // const [initialTotalPrice, setInitialTotalPrice] = useState(0);
 
   // Total price = sum of all price
   // Grand Total = Total price + shipping - since Shipping = free => Grand price = Total price
@@ -59,6 +67,80 @@ function Checkout({ product, allCountriesData }) {
   //   const [selectedCountry, setSelectedCountry] = useState('');
   const [requiredCountry, setRequiredCountry] = useState('');
 
+  async function saveOrderDetails() {
+    const userWalletAddress = await window.ethereum.request({ method: 'eth_accounts' });
+    const orderId = `userOrder_${userWalletAddress[0]}`;
+    const total = totalPrice.toFixed(2);
+
+    const paymentsCompleted = {
+      subTotal: total,
+      shipping: 'free',
+      grandTotal: total,
+      selectedCurrency: 'MATIC'
+    };
+    const checkoutDetails = [form, { dbCart }, paymentsCompleted];
+
+    if (typeof window.ethereum !== 'undefined' && userWalletAddress.length !== 0) {
+      await addDoc(collection(db, orderId), {
+        checkoutDetails
+      });
+      // console.log(cartId);
+    } else {
+      alert('Please connect your wallet first');
+    }
+  }
+
+  async function pay() {
+    const payablePrice = totalPrice.toFixed(2);
+    const matAmount = payablePrice.toString();
+    // console.log(matAmount);
+
+    const userWalletAddress = await window.ethereum.request({ method: 'eth_accounts' });
+
+    function listenForTransactionMine(transactionResponse, provider) {
+      console.log(`Mining ${transactionResponse.hash}`);
+      return new Promise((resolve, reject) => {
+        try {
+          provider.once(transactionResponse.hash, (transactionReceipt) => {
+            console.log(`Completed with ${transactionReceipt.confirmations} confirmations. `);
+            resolve();
+            saveOrderDetails();
+            setOrderSuccess(true);
+            router.push('/order-status');
+          });
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }
+
+    console.log(`Funding with ${matAmount}...`);
+    if (typeof window.ethereum !== 'undefined' && userWalletAddress.length !== 0) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+      try {
+        const transactionResponse = await contract.fund({
+          value: ethers.utils.parseEther(matAmount)
+        });
+        await listenForTransactionMine(transactionResponse, provider);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert('payment not successful: please ensure your wallet is connected');
+      console.log('payment not successful: please ensure your wallet is connected');
+      // setOrderSuccess(false);
+      router.push('/order-status');
+    }
+  }
+
+  function handlePayOut(e) {
+    e.preventDefault();
+    pay();
+    // saveOrderDetails();
+  }
+
   useEffect(() => {
     function queryCountries() {
       const selectedCountry = countriesData.find((country) => {
@@ -78,6 +160,8 @@ function Checkout({ product, allCountriesData }) {
   //     </div>
   //   );
   // }
+
+  // console.log(dbCart);
 
   return (
     <>
@@ -171,7 +255,7 @@ function Checkout({ product, allCountriesData }) {
             <div className="sub-total w-[65%] ml-auto flex justify-between pb-6 border-b">
               <span className="font-bold">SUB TOTAL: </span>
               <span className="font-bold">
-                {totalPrice ? `${Math.round(totalPrice)} MAT` : 'sub total'}
+                {totalPrice ? `${totalPrice.toFixed(2)} MAT` : 'sub total'}
               </span>
             </div>
             <div className="shipping w-[65%] ml-auto flex justify-between py-6 border-b">
@@ -185,7 +269,7 @@ function Checkout({ product, allCountriesData }) {
             <div className="grand-total w-[65%] ml-auto flex justify-between py-6 border-b">
               <div className="font-bold">GRAND TOTAL</div>
               <span className="font-bold">
-                {totalPrice ? `${Math.round(totalPrice)} MAT` : 'pay total'}
+                {totalPrice ? `${totalPrice.toFixed(2)} MAT` : 'pay total'}
               </span>
             </div>
           </section>
@@ -200,6 +284,7 @@ function Checkout({ product, allCountriesData }) {
                     Email address
                   </label>
                   <input
+                    required
                     value={form.email}
                     onChange={(e) => {
                       setForm({
@@ -217,6 +302,7 @@ function Checkout({ product, allCountriesData }) {
                     Phone
                   </label>
                   <input
+                    required
                     value={form.tel}
                     onChange={(e) => {
                       setForm({
@@ -236,6 +322,7 @@ function Checkout({ product, allCountriesData }) {
                     Country
                   </label>
                   <select
+                    required
                     value={form.country}
                     onChange={(e) => {
                       setForm({
@@ -264,6 +351,7 @@ function Checkout({ product, allCountriesData }) {
                     State
                   </label>
                   <select
+                    required
                     value={form.state}
                     onChange={(e) => {
                       setForm({
@@ -311,6 +399,7 @@ function Checkout({ product, allCountriesData }) {
                   Home address
                 </label>
                 <input
+                  required
                   value={form.address}
                   onChange={(e) => {
                     setForm({
@@ -324,11 +413,11 @@ function Checkout({ product, allCountriesData }) {
                 />
               </div>
               <button
-                onClick={checkMetamaskAccount}
+                onClick={handlePayOut}
                 type="submit"
                 className="text-center w-full btn--colors_regular text--colors_default-invert px-6 py-3 mt-10 font-bold rounded"
               >
-                {totalPrice ? `pay ${Math.round(totalPrice)} MAT` : 'pay total'}
+                {totalPrice ? `pay ${totalPrice.toFixed(2)} MAT` : 'pay total'}
               </button>
             </form>
           </div>
