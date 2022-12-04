@@ -42,11 +42,11 @@ Being a one man team in this hackathon made building deeco very challenging. It 
 
 ## Live site
 
-> The project is hosted live. You can explore it this link - https://deeco.vercel.app. Just take note to keep your metamask wallet handy.
+> The project is hosted live. You can explore it via this link - https://deeco.vercel.app. Just take note to keep your metamask wallet handy.
 
 ## Live demo
 
-> You can watch a live demo of the project here - https://live-demo - checkout the demo video to get wowed even further.
+> You can watch a live demo of the project here - https://www.awesomescreenshot.com/video/13008461?key=e8314a86270462007152e3b172ec00aa - checkout the demo video to get wowed even further.
 
 ## Screenshots
 
@@ -119,7 +119,7 @@ pnpm run dev
 
 > Please take note that package management in this project is done using PNPM not NPM.
 
-> You might need to do some more setups. If you ever get into any issues, just create a github issue, I'll respond as soon as possible. I'll also be a twitter DM or an email way.
+> You might need to do some more setups. If you ever get into any issues, just create a github issue, I'll respond as soon as possible. I'll also be just a twitter DM or an email way.
 
 - Twitter: https://twitter.com/AJ_Okpainmo
 
