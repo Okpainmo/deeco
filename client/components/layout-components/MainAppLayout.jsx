@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import NavGroup from './NavGroup';
 import Footer from './Footer';
 import MobileMenuBar from './MobileMenuBar';
+import { ContractContext } from '../../context/ContractContext';
 
 function MainAppLayout({ children }) {
   const [closeMobileNav, setCloseMobileNav] = useState(true);
+  const { checkMetamaskAccount } = useContext(ContractContext);
+
+  useEffect(() => {
+    checkMetamaskAccount();
+  }, [checkMetamaskAccount]);
 
   function hideMobileNav() {
     setCloseMobileNav(true);

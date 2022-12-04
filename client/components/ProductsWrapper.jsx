@@ -10,7 +10,7 @@ function ProductsWrapper({ trendingProducts }) {
           return <ProductItem key={product.id} product={product} />;
         })}
       </section>
-      <div className="load-more-btn-wrapper flex justify-center w-full mt-12">
+      <div className="proceed-btn-wrapper flex justify-center w-full mt-12">
         <Link href="/cart">
           <button
             type="button"

@@ -4,22 +4,42 @@ import Link from 'next/link';
 import { doc, collection, addDoc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { CartContext } from '../context/CartContext';
+import { ContractContext } from '../context/ContractContext';
 import testPic from '../assets/images/dpic-1.jpg';
 import ProductItem from './ProductItem';
+// import { ContractContext } from '../context/ContractContext';
 
 function CartItem({ product }) {
   const { dbCart } = useContext(CartContext);
-  console.log(dbCart);
+  const { connectionStatus } = useContext(ContractContext);
+  // console.log(dbCart);
   const { itemCategory, itemImage, itemName, itemDescription, itemPrice, id } = product.item[0];
 
-  console.log(product.id);
+  // console.log(product.id);
 
-  function deleteItem() {
-    // const collectionById = doc(db, 'userCart', id);
+  // async function cartHandler() {
+  //   const userWalletAddress = await window.ethereum.request({ method: 'eth_accounts' });
+  //   const cartId = `userCart_${userWalletAddress[0]}`;
 
-    deleteDoc(doc(db, 'userCart', product.id)).then(() => {
-      window.location.reload();
-    });
+  //   if (typeof window.ethereum !== 'undefined' && userWalletAddress.length !== 0) {
+  //     await addDoc(collection(db, cartId), {
+  //       item
+  //     });
+  //     // console.log(cartId);
+  //   } else {
+  //     alert('Please connect your wallet first');
+  //   }
+  // }
+
+  async function deleteItem() {
+    const userWalletAddress = await window.ethereum.request({ method: 'eth_accounts' });
+    const cartId = `userCart_${userWalletAddress[0]}`;
+
+    if (typeof window.ethereum !== 'undefined' && userWalletAddress.length !== 0) {
+      deleteDoc(doc(db, cartId, product.id));
+    } else {
+      alert('Please connect your wallet first');
+    }
   }
 
   return (
@@ -38,7 +58,7 @@ function CartItem({ product }) {
             {itemName}
           </div>
           <p className="product-description text-[13px]">{itemDescription}</p>
-          <div className="product-price montserrat font-bold mt-2">${itemPrice}</div>
+          <div className="product-price montserrat font-bold mt-2">{itemPrice} MAT</div>
           <div className="quantity-selector mt-3 mb-5 border-t pt-6 items-center hidden">
             <span className="mr-3">Quantity</span>
             <div className="flex ml-3">
