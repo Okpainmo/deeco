@@ -46,7 +46,7 @@ function ContractContextProvider({ children }) {
       setConnectionStatus(false);
       // console.log(connectionStatus);
 
-      alert('wallet not found: NOT CONNECTED');
+      alert('Please connect your wallet to start shopping');
     }
   }
 

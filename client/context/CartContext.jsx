@@ -6,6 +6,7 @@ import { ContractContext } from './ContractContext';
 export const CartContext = createContext();
 
 function CartContextProvider({ children }) {
+  const [orderSuccess, setOrderSuccess] = useState('');
   const [dbCart, setDbCart] = useState([]);
   const { connectionStatus } = useContext(ContractContext);
 
@@ -35,10 +36,10 @@ function CartContextProvider({ children }) {
 
   // console.log(dbCart);
 
-  const number = 5;
-
   return (
-    <CartContext.Provider value={{ number, dbCart, setDbCart }}>{children}</CartContext.Provider>
+    <CartContext.Provider value={{ dbCart, setDbCart, orderSuccess, setOrderSuccess }}>
+      {children}
+    </CartContext.Provider>
   );
 }
 
