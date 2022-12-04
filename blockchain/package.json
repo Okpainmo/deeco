@@ -32,5 +32,8 @@
   },
   "dependencies": {
     "@nomiclabs/hardhat-waffle": "^2.0.3"
+  },
+  "engines": {
+    "npm": "please-use-pnpm-not-npm"
   }
 }

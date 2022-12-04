@@ -69,9 +69,7 @@ function StickyNavbar() {
       </section>
       <section className="sticky-nav-right flex items-center gap-4">
         <Link href="/admin">
-          <div className="underline text--colors_default-invert text-[12px] hidden">
-            admin dashboard
-          </div>
+          <div className="underline text--colors_default-invert text-[12px]">create a store</div>
         </Link>
         <Link href="/cart" className="cart relative">
           <svg

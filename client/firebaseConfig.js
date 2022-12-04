@@ -9,14 +9,24 @@ import { getFirestore } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+// Firebase configuration
+
+/* dev: I was having .env issues because I got a new PC. Due to the limited time at hand to finish up the hackathon project I couldn't
+focus to fix the issue.
+
+It seemed my .env file was not being read - hence I left my credentials open 
+to public view - permit that for this test/hackathon mode */
+
+/* dev: The config data below, is different from the one in the .env file. That is because I kept changing 
+firestore databases because the dev process was using up free tier firebase/firestore provisions. */
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyDPg10xtYCXrjrLseOgfMIITqto1r_Gzac',
-  authDomain: 'deeco-test-5.firebaseapp.com',
-  projectId: 'deeco-test-5',
-  storageBucket: 'deeco-test-5.appspot.com',
-  messagingSenderId: '147102941651',
-  appId: '1:147102941651:web:139a78b6514cec6c686f26'
+  apiKey: 'AIzaSyAlVE4CvwZHZO2UTIq_aNMcS99I2RGCon4',
+  authDomain: 'deeco-main.firebaseapp.com',
+  projectId: 'deeco-main',
+  storageBucket: 'deeco-main.appspot.com',
+  messagingSenderId: '928004288935',
+  appId: '1:928004288935:web:94f88b81986573536d0682'
 
   // apiKey: process.env.TILO_FIREBASE_API_KEY,
   // authDomain: process.env.TILO_FIREBASE_AUTH_DOMAIN,
