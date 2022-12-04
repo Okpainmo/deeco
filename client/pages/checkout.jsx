@@ -4,6 +4,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import Footer from '../components/layout-components/Footer';
 import { CartContext } from '../context/CartContext';
+import { ContractContext } from '../context/ContractContext';
 
 const DynamicThemeSwitcher = dynamic(() => import('../components/ThemeSwitcher'), {
   ssr: false
@@ -11,6 +12,41 @@ const DynamicThemeSwitcher = dynamic(() => import('../components/ThemeSwitcher')
 
 function Checkout({ product, allCountriesData }) {
   const { dbCart } = useContext(CartContext);
+  const { checkMetamaskAccount } = useContext(ContractContext);
+  const [initialTotalPrice, setInitialTotalPrice] = useState(0);
+
+  // Total price = sum of all price
+  // Grand Total = Total price + shipping - since Shipping = free => Grand price = Total price
+
+  // console.log(dbCart);
+
+  // async function getTotalPrice() {
+  //   const priceArray = dbCart.map((checkoutProduct) => {
+  //     const { itemCategory, itemImage, itemName, itemDescription, itemPrice, id } =
+  //       checkoutProduct.item[0];
+
+  //     return itemPrice;
+  //   });
+
+  //   if (dbCart !== []) {
+  //     const totalPrice = priceArray.reduce((a, b) => {
+  //       return a + b;
+  //     }, 0);
+  //   }
+  // }
+
+  const priceArray = dbCart.map((checkoutProduct) => {
+    const { itemCategory, itemImage, itemName, itemDescription, itemPrice, id } =
+      checkoutProduct.item[0];
+
+    return itemPrice;
+  });
+
+  const totalPrice = priceArray.reduce((a, b) => {
+    return a + b;
+  }, 0);
+
+  // console.log(totalPrice);
 
   const countriesData = allCountriesData.data.result;
   const [form, setForm] = useState({
@@ -28,15 +64,11 @@ function Checkout({ product, allCountriesData }) {
       const selectedCountry = countriesData.find((country) => {
         return country.name === form.country;
       });
-      console.log(requiredCountry);
-      //   if (selectedCountry) {
-      //     console.log(selectedCountry.states);
-      //     const { states } = selectedCountry;
-      //   }
+
       return selectedCountry;
     }
     setRequiredCountry(queryCountries());
-  }, [countriesData, form.country, requiredCountry]);
+  }, [countriesData, form.country]);
 
   // if (dbCart.length === 0) {
   //   return (
@@ -116,7 +148,9 @@ function Checkout({ product, allCountriesData }) {
                           <div className="flex product-title font-bold mb-2 w-[70%]">
                             {itemName}
                           </div>
-                          <div className="w-[25%] font-bold text-right">${itemPrice}</div>
+                          <div className="w-[25%] font-bold text-right">
+                            {itemPrice.toFixed(2)} MAT
+                          </div>
                         </div>
                         <div className="product-description mb-2 text-[12px] leading-[20px]">
                           {itemDescription}
@@ -128,7 +162,7 @@ function Checkout({ product, allCountriesData }) {
               ) : (
                 <div
                   div
-                  className="font-bold animate-pulse mt-12 text-2xl text--colors_primary text-center"
+                  className="font-bold animate-pulse my-12 text-2xl text--colors_primary text-center"
                 >
                   Loading Your Checkout
                 </div>
@@ -136,7 +170,9 @@ function Checkout({ product, allCountriesData }) {
             </div>
             <div className="sub-total w-[65%] ml-auto flex justify-between pb-6 border-b">
               <span className="font-bold">SUB TOTAL: </span>
-              <span className="font-bold">$200</span>
+              <span className="font-bold">
+                {totalPrice ? `${Math.round(totalPrice)} MAT` : 'sub total'}
+              </span>
             </div>
             <div className="shipping w-[65%] ml-auto flex justify-between py-6 border-b">
               <div>
@@ -148,7 +184,9 @@ function Checkout({ product, allCountriesData }) {
             </div>
             <div className="grand-total w-[65%] ml-auto flex justify-between py-6 border-b">
               <div className="font-bold">GRAND TOTAL</div>
-              <span className="font-bold">$200</span>
+              <span className="font-bold">
+                {totalPrice ? `${Math.round(totalPrice)} MAT` : 'pay total'}
+              </span>
             </div>
           </section>
         </section>
@@ -286,10 +324,11 @@ function Checkout({ product, allCountriesData }) {
                 />
               </div>
               <button
+                onClick={checkMetamaskAccount}
                 type="submit"
                 className="text-center w-full btn--colors_regular text--colors_default-invert px-6 py-3 mt-10 font-bold rounded"
               >
-                Pay Total
+                {totalPrice ? `pay ${Math.round(totalPrice)} MAT` : 'pay total'}
               </button>
             </form>
           </div>

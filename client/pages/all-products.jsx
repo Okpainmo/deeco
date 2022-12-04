@@ -18,12 +18,12 @@ function ProductsSection({ allProducts }) {
             return <ProductItem key={product.id} product={product} />;
           })}
         </section>
-        <Link href="/all-products" className="load-more-btn-wrapper flex justify-center">
+        <Link href="/cart" className="load-more-btn-wrapper flex justify-center">
           <button
             type="button"
             className="btn--colors_outline border-[3px] font-bold montserrat px-10 w-[350px] py-3"
           >
-            Load more products
+            Proceed to cart
           </button>
         </Link>
       </section>
@@ -37,6 +37,9 @@ export async function getServerSideProps(context) {
   // const { params } = context;
   const response = await fetch('https://fakestoreapi.com/products');
   const allProducts = await response.json();
+
+  // const fetchResponse = await fetch('https://api.coingecko.com/api/v3/coins/matic-network');
+  // const coinData = await fetchResponse.json();
   // console.log(trendingProducts);
   return {
     props: {
