@@ -21,12 +21,12 @@ to public view - permit that for this test/hackathon mode */
 firestore databases because the dev process was using up free tier firebase/firestore provisions. */
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAlVE4CvwZHZO2UTIq_aNMcS99I2RGCon4',
-  authDomain: 'deeco-main.firebaseapp.com',
-  projectId: 'deeco-main',
-  storageBucket: 'deeco-main.appspot.com',
-  messagingSenderId: '928004288935',
-  appId: '1:928004288935:web:f38f0571d409d67a6d0682'
+  apiKey: 'AIzaSyDnHo5RC4WOZRxeC21g4k6VKQSAhPdIaC0',
+  authDomain: 'deeco-main-new.firebaseapp.com',
+  projectId: 'deeco-main-new',
+  storageBucket: 'deeco-main-new.appspot.com',
+  messagingSenderId: '831740979701',
+  appId: '1:831740979701:web:0c095f065a7dfffd7298bc'
 
   // apiKey: process.env.TILO_FIREBASE_API_KEY,
   // authDomain: process.env.TILO_FIREBASE_AUTH_DOMAIN,
