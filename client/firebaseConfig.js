@@ -26,7 +26,7 @@ const firebaseConfig = {
   projectId: 'deeco-main-2',
   storageBucket: 'deeco-main-2.appspot.com',
   messagingSenderId: '329972626782',
-  appId: '1:329972626782:web:13eb6990792fcb0890cbcf'
+  appId: '1:329972626782:web:b9004294c53bb0f090cbcf'
 
   // apiKey: process.env.TILO_FIREBASE_API_KEY,
   // authDomain: process.env.TILO_FIREBASE_AUTH_DOMAIN,
