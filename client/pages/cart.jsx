@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Link from 'next/link';
-import MainAppLayout from '../components/layout-components/MainAppLayout';
+import MainAppLayout from '../components/layout/MainAppLayout';
 import CartItem from '../components/CartItem';
 import { CartContext } from '../context/CartContext';
 

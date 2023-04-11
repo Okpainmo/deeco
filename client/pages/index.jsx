@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 // import { doc, collection, addDoc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
 // import { db } from '../firebaseConfig';
 import HomeHero from '../components/HomeHero';
-import MainAppLayout from '../components/layout-components/MainAppLayout';
+import MainAppLayout from '../components/layout/MainAppLayout';
 import ProductsSection from '../components/ProductsSection';
 import { ContractContext } from '../context/ContractContext';
 // import { CartContext } from '../context/CartContext';

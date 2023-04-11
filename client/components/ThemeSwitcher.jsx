@@ -4,10 +4,10 @@ function ThemeSwitcher() {
   const storedTheme = window.localStorage.getItem('prefered-theme');
 
   const checkTheme = () => {
-    if (storedTheme === 'lightTheme') {
-      return true;
+    if (storedTheme === 'darkTheme') {
+      return false;
     }
-    return false;
+    return true;
   };
 
   const [isLight, setIsLight] = useState(checkTheme);

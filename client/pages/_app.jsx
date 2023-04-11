@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
-import '../styles/globals.css';
 import CartContextProvider from '../context/CartContext';
 import ContractContextProvider from '../context/ContractContext';
+import '../styles/globals.css';
 
 // import ThemeContextProvider from '../../bin/ThemeContext';
 

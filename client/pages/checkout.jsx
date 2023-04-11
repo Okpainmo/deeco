@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import { ethers } from 'ethers';
 import { doc, collection, addDoc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import Footer from '../components/layout-components/Footer';
+import Footer from '../components/layout/Footer';
 import { CartContext } from '../context/CartContext';
 import { ContractContext } from '../context/ContractContext';
 import { abi } from '../constants';
@@ -43,6 +43,8 @@ function Checkout({ product, allCountriesData }) {
   //   }
   // }
 
+  //   const [selectedCountry, setSelectedCountry] = useState('');
+
   const priceArray = dbCart.map((checkoutProduct) => {
     const { itemCategory, itemImage, itemName, itemDescription, itemPrice, id } =
       checkoutProduct.item[0];
@@ -56,7 +58,9 @@ function Checkout({ product, allCountriesData }) {
 
   // console.log(totalPrice);
 
-  const countriesData = allCountriesData.data.result;
+  // const countriesData = allCountriesData.data.result;
+  // console.log(countriesData);
+
   const [form, setForm] = useState({
     email: '',
     tel: '',
@@ -64,8 +68,6 @@ function Checkout({ product, allCountriesData }) {
     state: '',
     address: ''
   });
-  //   const [selectedCountry, setSelectedCountry] = useState('');
-  const [requiredCountry, setRequiredCountry] = useState('');
 
   async function saveOrderDetails() {
     const userWalletAddress = await window.ethereum.request({ method: 'eth_accounts' });
@@ -141,16 +143,18 @@ function Checkout({ product, allCountriesData }) {
     // saveOrderDetails();
   }
 
-  useEffect(() => {
-    function queryCountries() {
-      const selectedCountry = countriesData.find((country) => {
-        return country.name === form.country;
-      });
+  // const [requiredCountry, setRequiredCountry] = useState('');
 
-      return selectedCountry;
-    }
-    setRequiredCountry(queryCountries());
-  }, [countriesData, form.country]);
+  // useEffect(() => {
+  //   function queryCountries() {
+  //     const selectedCountry = countriesData.find((country) => {
+  //       return country.name === form.country;
+  //     });
+
+  //     return selectedCountry;
+  //   }
+  //   setRequiredCountry(queryCountries());
+  // }, [countriesData, form.country]);
 
   // if (dbCart.length === 0) {
   //   return (
@@ -165,7 +169,7 @@ function Checkout({ product, allCountriesData }) {
 
   return (
     <>
-      <section className="top-section flex justify-between items-center px-4 w-full sm:gap-4 md:gap-6 pt-6 md:pt-16 sm:w-4/5 sm:mx-auto md:w-full md:px-10 xl:w-4/5">
+      <section className="checkout-top-section flex justify-between items-center px-4 w-full sm:gap-4 md:gap-6 pt-6 md:pt-16 sm:w-4/5 sm:mx-auto md:w-full md:px-10 xl:w-4/5">
         <div className="flex gap-3 justify-between items-center">
           <Link href="/cart">
             <svg
@@ -278,7 +282,7 @@ function Checkout({ product, allCountriesData }) {
           <div className=" min-h-[200px]">
             <h2 className="font-bold uppercase mb-4">Shipping Details</h2>
             <form action="">
-              <div className="flex justify-between mt-8 w-full">
+              <div className="phone-and-email-wrapper flex justify-between mt-8 w-full">
                 <div className="input-group flex flex-col w-[47%]">
                   <label className="font-bold" htmlFor="email">
                     Email address
@@ -316,12 +320,26 @@ function Checkout({ product, allCountriesData }) {
                   />
                 </div>
               </div>
-              <div className="flex justify-between mt-8 w-full">
+              <div className="state-and-countries-wrapper flex justify-between mt-8 w-full">
                 <div className="input-group flex flex-col w-[47%]">
                   <label className="font-bold" htmlFor="country">
                     Country
                   </label>
-                  <select
+                  <input
+                    type="text"
+                    required
+                    value={form.country}
+                    onChange={(e) => {
+                      setForm({
+                        ...form,
+                        country: e.target.value
+                      });
+                    }}
+                    name="country"
+                    id="country"
+                    className="border-b outline-none py-3 custom--input"
+                  />
+                  {/* <select
                     required
                     value={form.country}
                     onChange={(e) => {
@@ -344,13 +362,14 @@ function Checkout({ product, allCountriesData }) {
                         </option>
                       );
                     })}
-                  </select>
+                  </select> */}
                 </div>
                 <div className="input-group flex flex-col w-[47%]">
                   <label className="font-bold" htmlFor="state">
                     State
                   </label>
-                  <select
+                  <input
+                    type="text"
                     required
                     value={form.state}
                     onChange={(e) => {
@@ -358,11 +377,19 @@ function Checkout({ product, allCountriesData }) {
                         ...form,
                         state: e.target.value
                       });
-                      //   setStateList(() => {
-                      //     countriesData.find((country) => {
-                      //       return country.name === form.country;
-                      //     });
-                      //   });
+                    }}
+                    name="state"
+                    id="state"
+                    className="border-b outline-none py-3 custom--input"
+                  />
+                  {/* <select
+                    required
+                    value={form.state}
+                    onChange={(e) => {
+                      setForm({
+                        ...form,
+                        state: e.target.value
+                      });
                     }}
                     name="state"
                     id="state"
@@ -370,7 +397,7 @@ function Checkout({ product, allCountriesData }) {
                   >
                     <option value=""> -- select state -- </option>
                     {!requiredCountry ? (
-                      <option value="">state not selected</option>
+                      <option value="">please select a country first</option>
                     ) : (
                       requiredCountry.states.map((state) => {
                         // const countries = country.name.common;
@@ -382,19 +409,10 @@ function Checkout({ product, allCountriesData }) {
                         );
                       })
                     )}
-                    {/* {allCountries.map((country) => {
-                  // const countries = country.name.common;
-                  // console.log(country.name.common);
-                  return (
-                    <option key={country.name.common} value={country.name.common}>
-                      {country.name.common}
-                    </option>
-                  );
-                })} */}
-                  </select>
+                  </select> */}
                 </div>
               </div>
-              <div className="input-group flex flex-col mt-8">
+              <div className="address-wrapper input-group flex flex-col mt-8">
                 <label className="font-bold" htmlFor="address">
                   Home address
                 </label>
@@ -430,35 +448,35 @@ function Checkout({ product, allCountriesData }) {
 
 export default Checkout;
 
-export async function getServerSideProps(context) {
-  // const { params } = context;
+// export async function getServerSideProps(context) {
+//   // const { params } = context;
 
-  // const products = await fetch('https://fakestoreapi.com/products?limit=3');
-  // const trendingProducts = await products.json();
-  // console.log(trendingProducts);
+//   // const products = await fetch('https://fakestoreapi.com/products?limit=3');
+//   // const trendingProducts = await products.json();
+//   // console.log(trendingProducts);
 
-  //   const countries = await fetch('https://restcountries.herokuapp.com/api/v1');
-  //   const allCountries = await countries.json();
-  //   //   console.log(allCountries);
+//   //   const countries = await fetch('https://restcountries.herokuapp.com/api/v1');
+//   //   const allCountries = await countries.json();
+//   //   //   console.log(allCountries);
 
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': 'b82146e93cmsha26c3db97b9579fp1bf884jsn5ce595f7e0ec',
-      'X-RapidAPI-Host': 'countries-states-cities-dataset.p.rapidapi.com'
-    }
-  };
+//   const options = {
+//     method: 'GET',
+//     headers: {
+//       'X-RapidAPI-Key': 'b82146e93cmsha26c3db97b9579fp1bf884jsn5ce595f7e0ec',
+//       'X-RapidAPI-Host': 'countries-states-cities-dataset.p.rapidapi.com'
+//     }
+//   };
 
-  const data = await fetch(
-    'https://countries-states-cities-dataset.p.rapidapi.com/list-countries-states',
-    options
-  );
-  const allCountriesData = await data.json();
+//   const data = await fetch(
+//     'https://countries-states-cities-dataset.p.rapidapi.com/list-countries-states',
+//     options
+//   );
+//   const allCountriesData = await data.json();
 
-  return {
-    props: {
-      // trendingProducts,
-      allCountriesData
-    }
-  };
-}
+//   return {
+//     props: {
+//       // trendingProducts,
+//       allCountriesData
+//     }
+//   };
+// }

@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import MainAppLayout from '../components/layout-components/MainAppLayout';
+import MainAppLayout from '../components/layout/MainAppLayout';
 import ProductsIntro from '../components/ProductsIntro';
 // import ProductsWrapper from '../components/ProductsWrapper';
 import ProductItem from '../components/ProductItem';
-import testPic from '../assets/images/dpic-1.jpg';
+// import testPic from '../assets/images/dpic-1.jpg';
 
 function ProductsSection({ allProducts }) {
   const allProductsPage = true;

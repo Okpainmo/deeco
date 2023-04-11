@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import MainAppLayout from '../components/layout-components/MainAppLayout';
+import MainAppLayout from '../components/layout/MainAppLayout';
 import { abi } from '../constants';
 
 function Admin() {
