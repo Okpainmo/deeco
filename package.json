@@ -1,7 +1,7 @@
 {
   "scripts": {
     "prepare": "husky install",
-    "lint": "next lint",
+    "lint": "npx eslint .",
     "format": "prettier --write .",
     "lint-staged": "npx lint-staged"
   },
@@ -10,8 +10,8 @@
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "husky": "^8.0.0",
     "lint-staged": "^15.1.0",
-    "prettier": "3.1.0"
+    "prettier": "3.1.0",
+    "husky": "^8.0.0"
   }
 }
