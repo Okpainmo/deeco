@@ -29,9 +29,7 @@ function ThemeContextProvider({ children }) {
   useEffect(() => {
     const setTheme = () => {
       const root = window.document.documentElement;
-      const operatingSystemThemeDark = window.matchMedia(
-        '(prefers-color-scheme: dark)'
-      );
+      const operatingSystemThemeDark = window.matchMedia('(prefers-color-scheme: dark)');
 
       if (storedTheme === 'darkTheme' && operatingSystemThemeDark.matches) {
         root.classList.add('dark');
@@ -51,9 +49,7 @@ function ThemeContextProvider({ children }) {
   }, [storedTheme]);
 
   return (
-    <ThemeContext.Provider
-      value={{ figure, isLight, setDarkTheme, setLightTheme }}
-    >
+    <ThemeContext.Provider value={{ figure, isLight, setDarkTheme, setLightTheme }}>
       {children}
     </ThemeContext.Provider>
   );

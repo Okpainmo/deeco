@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import Link from 'next/link';
-import MainAppLayout from '../components/layout/MainAppLayout';
-import CartItem from '../components/CartItem';
-import { CartContext } from '../context/CartContext';
+import MainAppLayout from '../../components/layout/MainAppLayout';
+import CartItem from '../../components/CartItem';
+import { CartContext } from '../../context/CartContext';
 
 function Cart() {
   const { dbCart } = useContext(CartContext);
@@ -24,7 +24,7 @@ function Cart() {
     <MainAppLayout>
       <section className="px-3 min-h-[500px] w-full mt-6 md:pt-10 sm:w-4/5 sm:mx-auto md:w-full md:px-10 xl:w-4/5 pb-20">
         <section
-          className="w-full text--colors_secondary montserrat px-3 py-6 sm:py-8 sm:px-12 dark:border min-h-screen"
+          className="w-full text--colors_secondary montserrat px-3 py-6 sm:py-8 sm:px-12 dark:border min-h-[450px]"
           style={{ boxShadow: '0 0 15px 2px rgb(0 0 0 / 5%)' }}
         >
           <section className="mb-6 border-b flex justify-between items-center pb-4">

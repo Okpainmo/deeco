@@ -68,7 +68,7 @@ function StickyNavbar() {
         </div>
       </section>
       <section className="sticky-nav-right flex items-center gap-4">
-        <Link href="/admin">
+        <Link href="/sign-up">
           <div className="underline text--colors_default-invert text-[12px]">create a store</div>
         </Link>
         <Link href="/cart" className="cart relative">
