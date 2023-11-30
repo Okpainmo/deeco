@@ -6,7 +6,7 @@ This file is to serve as a temporary API documentation for the Deeco Project(POC
 
 1. The API is currently(temporarily) hosted on render(render.com).
 
-> Base URL is: https:/deeco-backend-server.onrender.com
+> Base URL is: https://deeco-backend-server.onrender.com
 
 2. The front-end developer should keep the base URL abstracted(programmatically) from the API endpoints so as to be easily changeable. As this is just a temporary/development host server - the host platform is very likely to be changed.
 

@@ -3,7 +3,8 @@
     "prepare": "husky install",
     "lint": "npx eslint .",
     "format": "prettier --write .",
-    "lint-staged": "npx lint-staged"
+    "lint-staged": "npx lint-staged",
+    "pre-commit": "lint-staged"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",

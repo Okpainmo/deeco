@@ -5,7 +5,8 @@
     "dev": "node --no-warnings --loader ts-node/esm --watch ./src/app.ts",
     "lint": "npx eslint .",
     "build": "tsc",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

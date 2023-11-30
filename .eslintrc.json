@@ -3,24 +3,9 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["prettier", "plugin:@typescript-eslint/recommended", "eslint:recommended"],
-  "overrides": [
-    {
-      "files": ["client/**/*"], // Match files in the subfolder
-      "extends": [
-        "next",
-        "plugin:react/recommended",
-        "airbnb",
-        "next/core-web-vitals",
-        "prettier",
-        "plugin:prettier/recommended"
-      ] // Path to the subfolder configuration
-    }
-    // {
-    //   "files": ["server/**/*"], // Match files in the subfolder
-    //   "extends": ["./server/.eslintrc.json"] // Path to the subfolder configuration
-    // }
-  ],
+  "extends": ["prettier"],
+  // "extends": ["prettier", "plugin:@typescript-eslint/recommended", "eslint:recommended"],
+
   "parserOptions": {
     "ecmaVersion": 13,
     "sourceType": "module"
@@ -42,25 +27,3 @@
     "import/prefer-default-export": "off"
   }
 }
-
-// {
-//     "env": {
-//         "browser": true,
-//         "es2021": true
-//     },
-//     "extends": [
-//         "plugin:react/recommended",
-//         "airbnb"
-//     ],
-//     "overrides": [
-//     ],
-//     "parserOptions": {
-//         "ecmaVersion": "latest",
-//         "sourceType": "module"
-//     },
-//     "plugins": [
-//         "react"
-//     ],
-//     "rules": {
-//     }
-// }

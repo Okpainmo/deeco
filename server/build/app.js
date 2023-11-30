@@ -18,7 +18,7 @@ import dbConnector from './db/connect-db.js';
 // test end-point
 // @ts-ignore
 app.get('/', (req, res) => {
-    res.status(200).send('API Is Live - welcome to the Terabyte Affiliate Network API server');
+    res.status(200).send('API Is Live - welcome to the Deeco API server');
 });
 // user end-points - all routed
 app.use('/api/v1/auth', authRouter);
