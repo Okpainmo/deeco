@@ -1,17 +1,10 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 
-import { isValidEmail } from '../utils/validation';
-
-const LoginPage = () => {
-  const router = useRouter();
-  const initialFormData = {
+const login = () => {
+  const [formData, setFormData] = useState({
     username: '',
     password: ''
-  };
-  const [formData, setFormData] = useState(initialFormData);
-  const [formError, setFormError] = useState(false);
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,39 +12,10 @@ const LoginPage = () => {
       ...formData,
       [name]: value
     });
-    setFormError(false);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!isValidEmail(formData.username)) {
-      setFormError(true);
-      return;
-    }
-
-    try {
-      const res = await fetch(`https:/deeco-backend-server.onrender.com/api/v1/auth/log-in`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: formData.username,
-          password: formData.password
-        })
-      });
-
-      const data = await res.json();
-
-      if (data.response && data.responseMessage === 'user logged in successfully') {
-        router.push(`/dashboard`);
-      } else {
-        setFormError(true);
-      }
-    } catch (e) {
-      throw new Error(e);
-    }
+  const handleLogin = () => {
+    navigate('/signup/next-stage');
   };
 
   return (
@@ -65,7 +29,7 @@ const LoginPage = () => {
           Don't have an account?
           <span className="text-[#5D5FEF]"> Create one for free</span>
         </h1>
-        <form className="" onSubmit={handleSubmit} method="POST">
+        <form className="">
           <div className="flex flex-col mb-4">
             <label className="text-base font-medium pb-1">Username</label>
             <input
@@ -75,11 +39,7 @@ const LoginPage = () => {
               type="text"
               placeholder="Enter your username"
               className="bg-gray-100 outline-none p-4 rounded-sm border border-gray-400"
-              required
             />
-            <p className={`${formError ? 'block' : 'hidden'} text-red-500`}>
-              Invalid email address
-            </p>
           </div>
           <div className="flex flex-col mb-4">
             <label className="text-base font-medium pb-1">Password</label>
@@ -87,21 +47,15 @@ const LoginPage = () => {
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              type="password"
+              type="text"
               placeholder="Enter your correct password"
               className="bg-gray-100 outline-none p-4 rounded-sm border border-gray-400"
-              required
             />
-            <p className={`${formError ? 'block' : 'hidden'} text-red-500`}> Invalid password</p>
           </div>
-          <p className="text-end">
-            <Link href="/sign-up" className=" mr-auto text-sm text-[#5D5FEF]">
-              Forgot Password?
-            </Link>
-          </p>
+          <p className="text-end text-sm text-[#5D5FEF]">Forgot Password?</p>
           <button
-            type="submit"
             className="bg-[#EF5DA8] text-white w-[100%] p-4 rounded-sm shadow-md mt-10 mb-6"
+            onClick={handleLogin}
           >
             Log in
           </button>
@@ -114,7 +68,7 @@ const LoginPage = () => {
             <p className="text-xs lg:text-sm text-center text-gray-400 w-[32%]">Or continue with</p>
             <div className="w-[31%]">
               <img src="images/Line.png" alt="line" className="w-[100%] text-center" />
-            </div>
+            </div>{' '}
           </div>
           <div className="my-6">
             <img src="images/devicon_google.png" alt="google_logo" />
@@ -125,4 +79,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default login;
