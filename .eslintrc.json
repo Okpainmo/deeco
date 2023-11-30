@@ -4,6 +4,23 @@
     "es2021": true
   },
   "extends": ["prettier", "plugin:@typescript-eslint/recommended", "eslint:recommended"],
+  "overrides": [
+    {
+      "files": ["client/**/*"], // Match files in the subfolder
+      "extends": [
+        "next",
+        "plugin:react/recommended",
+        "airbnb",
+        "next/core-web-vitals",
+        "prettier",
+        "plugin:prettier/recommended"
+      ] // Path to the subfolder configuration
+    }
+    // {
+    //   "files": ["server/**/*"], // Match files in the subfolder
+    //   "extends": ["./server/.eslintrc.json"] // Path to the subfolder configuration
+    // }
+  ],
   "parserOptions": {
     "ecmaVersion": 13,
     "sourceType": "module"
