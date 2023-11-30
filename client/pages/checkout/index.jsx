@@ -5,13 +5,13 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { ethers } from 'ethers';
 import { doc, collection, addDoc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
-import Footer from '../components/layout/Footer';
-import { CartContext } from '../context/CartContext';
-import { ContractContext } from '../context/ContractContext';
-import { abi } from '../constants';
+import { db } from '../../firebaseConfig';
+import Footer from '../../components/layout/Footer';
+import { CartContext } from '../../context/CartContext';
+import { ContractContext } from '../../context/ContractContext';
+import { abi } from '../../constants';
 
-const DynamicThemeSwitcher = dynamic(() => import('../components/ThemeSwitcher'), {
+const DynamicThemeSwitcher = dynamic(() => import('../../components/ThemeSwitcher'), {
   ssr: false
 });
 
@@ -129,6 +129,8 @@ function Checkout({ product, allCountriesData }) {
       } catch (error) {
         console.log(error);
       }
+
+      // next step: delete the cart for this successful transaction. If we need it in the future, we'll get it from the user order list.
     } else {
       alert('payment not successful: please ensure your wallet is connected');
       console.log('payment not successful: please ensure your wallet is connected');
