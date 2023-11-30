@@ -2,7 +2,10 @@
   "type": "module",
   "scripts": {
     "start": "node ./app.js",
-    "dev": "node --no-warnings --loader ts-node/esm --watch ./src/app.ts"
+    "dev": "node --no-warnings --loader ts-node/esm --watch ./src/app.ts",
+    "lint": "npx eslint .",
+    "build": "tsc",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

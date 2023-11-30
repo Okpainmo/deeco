@@ -59,20 +59,20 @@ Three end-points are currently active.
 
 ```json
 {
-    "responseMessage": "user sign-up/registration successful",
-    "response": {
-        "user": {
-            "fullName": "test user1",
-            "email": "testemail2@gmail.com",
-            "password": "$2a$14$GUfltf2j/YKadwcRd/qgu.knYSgXQAu1oPnTM4YvuvIDIB2mxWKuS",
-            "confirmPassword": "$2a$14$l.E/gYuDXrjg5bb4VIJoteGvQQEaC57hrhC.mTvJcPFBluqHstsMO",
-            "_id": "65682e13f16be36b08393014",
-            "createdAt": "2023-11-30T06:39:15.070Z",
-            "updatedAt": "2023-11-30T06:39:15.070Z",
-            "__v": 0
-        },
-        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY4MmUxM2YxNmJlMzZiMDgzOTMwMTQiLCJ1c2VyRW1haWwiOiJ0ZXN0ZW1haWwyQGdtYWlsLmNvbSIsImlhdCI6MTcwMTMyNjM1NSwiZXhwIjoxNzAxMzI5OTU1fQ.bSzvZ8cZdp0zdfBHRTyQ33HODYgLnOkcH8rdlZq7mk8"
-    }
+  "responseMessage": "user sign-up/registration successful",
+  "response": {
+    "user": {
+      "fullName": "test user1",
+      "email": "testemail2@gmail.com",
+      "password": "$2a$14$GUfltf2j/YKadwcRd/qgu.knYSgXQAu1oPnTM4YvuvIDIB2mxWKuS",
+      "confirmPassword": "$2a$14$l.E/gYuDXrjg5bb4VIJoteGvQQEaC57hrhC.mTvJcPFBluqHstsMO",
+      "_id": "65682e13f16be36b08393014",
+      "createdAt": "2023-11-30T06:39:15.070Z",
+      "updatedAt": "2023-11-30T06:39:15.070Z",
+      "__v": 0
+    },
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY4MmUxM2YxNmJlMzZiMDgzOTMwMTQiLCJ1c2VyRW1haWwiOiJ0ZXN0ZW1haWwyQGdtYWlsLmNvbSIsImlhdCI6MTcwMTMyNjM1NSwiZXhwIjoxNzAxMzI5OTU1fQ.bSzvZ8cZdp0zdfBHRTyQ33HODYgLnOkcH8rdlZq7mk8"
+  }
 }
 ```
 
@@ -105,19 +105,19 @@ Three end-points are currently active.
 
 ```json
 {
-    "responseMessage": "user logged in successfully",
-    "response": {
-        "user": {
-            "_id": "65682e13f16be36b08393014",
-            "fullName": "test user1",
-            "email": "testemail2@gmail.com",
-            "password": "$2a$14$GUfltf2j/YKadwcRd/qgu.knYSgXQAu1oPnTM4YvuvIDIB2mxWKuS",
-            "confirmPassword": "$2a$14$l.E/gYuDXrjg5bb4VIJoteGvQQEaC57hrhC.mTvJcPFBluqHstsMO",
-            "createdAt": "2023-11-30T06:39:15.070Z",
-            "updatedAt": "2023-11-30T06:39:15.070Z",
-            "__v": 0
-        },
-        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY4MmUxM2YxNmJlMzZiMDgzOTMwMTQiLCJ1c2VyRW1haWwiOiJ0ZXN0ZW1haWwyQGdtYWlsLmNvbSIsImlhdCI6MTcwMTMyNjM3NSwiZXhwIjoxNzAxMzI5OTc1fQ.nXSNJp84odON96IINdMIsoNYH9t3ySQepKgss9Lg4lw"
-    }
+  "responseMessage": "user logged in successfully",
+  "response": {
+    "user": {
+      "_id": "65682e13f16be36b08393014",
+      "fullName": "test user1",
+      "email": "testemail2@gmail.com",
+      "password": "$2a$14$GUfltf2j/YKadwcRd/qgu.knYSgXQAu1oPnTM4YvuvIDIB2mxWKuS",
+      "confirmPassword": "$2a$14$l.E/gYuDXrjg5bb4VIJoteGvQQEaC57hrhC.mTvJcPFBluqHstsMO",
+      "createdAt": "2023-11-30T06:39:15.070Z",
+      "updatedAt": "2023-11-30T06:39:15.070Z",
+      "__v": 0
+    },
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTY4MmUxM2YxNmJlMzZiMDgzOTMwMTQiLCJ1c2VyRW1haWwiOiJ0ZXN0ZW1haWwyQGdtYWlsLmNvbSIsImlhdCI6MTcwMTMyNjM3NSwiZXhwIjoxNzAxMzI5OTc1fQ.nXSNJp84odON96IINdMIsoNYH9t3ySQepKgss9Lg4lw"
+  }
 }
 ```

@@ -3,7 +3,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "npx eslint .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "dotenv": "^16.0.3",
