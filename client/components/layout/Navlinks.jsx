@@ -3,9 +3,9 @@ import Link from 'next/link';
 
 function Navlinks() {
   return (
-    <section className="hidden lg:flex ml-20 font-bold mr-auto gap-6 text-[11px] text--colors_default items-center">
-      <Link href="/all-products">
-        <div className="flex gap-2 items-center">
+    <section className="hidden lg:flex justify-center font-bold gap-6 text-[11px] text--colors_default items-center">
+      <Link href="/">
+        {/* <div className="flex gap-2 items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -21,23 +21,20 @@ function Navlinks() {
             />
           </svg>
 
-          <div className="text-center">All products</div>
-        </div>
+        </div> */}
+        <div className="text-center">How its Work</div>
       </Link>
-      <Link href="/coins-watchlist">
-        <div className="text-center">Today's deals</div>
+      <Link href="/">
+        <div className="text-center">Pricing</div>
       </Link>
-      <Link href="/trending-coins-watchlist">
-        <div className="text-center">Electronics</div>
+      <Link href="/">
+        <div className="text-center">Features</div>
       </Link>
-      <Link href="/blog">
-        <div className="text-center">Accessories</div>
+      <Link href="/">
+        <div className="text-center">Create Store</div>
       </Link>
-      <Link href="/policy">
-        <div className="text-center">Deeco fashion</div>
-      </Link>
-      <Link href="/about">
-        <div className="text-center">Home and kitchen</div>
+      <Link href="/">
+        <div className="text-center">Buy Theme</div>
       </Link>
     </section>
   );
