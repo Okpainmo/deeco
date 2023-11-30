@@ -12,7 +12,8 @@
     "fs": "0.0.1-security",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "sharp": "^0.33.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
