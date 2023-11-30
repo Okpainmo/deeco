@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
-import MainAppLayout from '../components/layout/MainAppLayout';
-import { CartContext } from '../context/CartContext';
+import MainAppLayout from '../../components/layout/MainAppLayout';
+import { CartContext } from '../../context/CartContext';
 
 function OrderStatus() {
   const { orderSuccess, setOrderSuccess } = useContext(CartContext);
