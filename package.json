@@ -1,8 +1,24 @@
 {
-  "devDependencies": {
-    "husky": "^8.0.2"
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "npx eslint .",
+    "format": "prettier --write .",
+    "lint-staged": "npx lint-staged"
   },
-  "engines": {
-    "npm": "please-use-pnpm-not-npm"
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.23.3",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "@commitlint/config-conventional": "^18.4.3",
+    "commitlint": "^18.4.3"
   }
 }

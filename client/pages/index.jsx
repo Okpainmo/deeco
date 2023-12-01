@@ -1,66 +1,132 @@
-import React, { useContext, useState, useEffect } from 'react';
-// import { doc, collection, addDoc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
-// import { db } from '../firebaseConfig';
-import HomeHero from '../components/HomeHero';
-import MainAppLayout from '../components/layout/MainAppLayout';
-import ProductsSection from '../components/ProductsSection';
-import { ContractContext } from '../context/ContractContext';
-// import { CartContext } from '../context/CartContext';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import Image from 'next/image';
 
-function Home({ trendingProducts }) {
-  const [dbCart, setDbCart] = useState('');
-  // const { checkMetamaskAccount } = useContext(ContractContext);
+import { isValidEmail } from '../utils/validation';
+import MobileUser from '../assets/images/undraw_mobile_user.png';
+import GoogleIcon from '../assets/images/devicon_google.png';
+import Line from '../assets/images/line.png';
 
-  // const number = useContext(CartContext);
-  // console.log(process.env);
-  // console.log(coinData.market_data.current_price.usd);
+const LoginPage = () => {
+  const router = useRouter();
+  const initialFormData = {
+    username: '',
+    password: ''
+  };
+  const [formData, setFormData] = useState(initialFormData);
+  const [formError, setFormError] = useState(false);
 
-  // const maticPrice = coinData.market_data.current_price.usd;
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+    setFormError(false);
+  };
 
-  return (
-    <MainAppLayout>
-      <HomeHero />
-      <ProductsSection trendingProducts={trendingProducts} />
-    </MainAppLayout>
-  );
-}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-export default Home;
+    if (!isValidEmail(formData.username)) {
+      setFormError(true);
+      return;
+    }
 
-export async function getServerSideProps(context) {
-  // const { params } = context;
-  const response = await fetch('https://fakestoreapi.com/products?limit=9');
-  const trendingProducts = await response.json();
+    try {
+      const res = await fetch(`https:/deeco-backend-server.onrender.com/api/v1/auth/log-in`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: formData.username,
+          password: formData.password
+        })
+      });
 
-  // const fetchResponse = await fetch('https://api.coingecko.com/api/v3/coins/matic-network');
-  // const coinData = await fetchResponse.json();
-  // console.log(trendingProducts);
+      const data = await res.json();
 
-  /* ** dev: trying out fetching firebase data with SSR - odd I guess ** */
-
-  // async function getCart() {
-  //   await getDocs(collection(db, 'userCart')).then((data) => {
-  //     const dbCartData = data.docs.map((item) => {
-  //       return { ...item.data(), id: item.id };
-  //     });
-
-  //     // setDbCart(dbCartData);
-
-  //     // console.log(
-  //     //   data.docs.map((item) => {
-  //     //     return { ...item.data(), id: item.id };
-  //     //   })
-  //     // );
-
-  //     // setDbCart(...item.data);
-  //     // console.log(dbCartData);
-  //   });
-  // }
-
-  // console.log(coinData);
-  return {
-    props: {
-      trendingProducts
+      if (data.response && data.responseMessage === 'user logged in successfully') {
+        router.push(`/dashboard`);
+      } else {
+        setFormError(true);
+      }
+    } catch (e) {
+      throw new Error(e);
     }
   };
-}
+
+  return (
+    <main className="bg-gray-100 flex justify-evenly">
+      <div className="w-[30%] lg:flex items-end justify-end hidden mb-2 ">
+        <Image src={MobileUser} alt="Mobile User" />
+      </div>
+      <div className="w-[90%] md:w-[80%] lg:w-[40%] border rounded-sm bg-white shadow-md p-4 my-8 md:p-8">
+        <h1 className="font-bold text-3xl text-center mt-4">Log in to Deeco</h1>
+        <h1 className="text-sm text-center py-6">
+          Don't have an account?
+          <span className="text-[#5D5FEF]"> Create one for free</span>
+        </h1>
+        <form className="" onSubmit={handleSubmit} method="POST">
+          <div className="flex flex-col mb-4">
+            <label className="text-base font-medium pb-1">Username</label>
+            <input
+              name="username"
+              value={formData.username}
+              onChange={handleInputChange}
+              type="text"
+              placeholder="Enter your username"
+              className="bg-gray-100 outline-none p-4 rounded-sm border border-gray-400"
+              required
+            />
+            <p className={`${formError ? 'block' : 'hidden'} text-red-500`}>
+              Invalid email address
+            </p>
+          </div>
+          <div className="flex flex-col mb-4">
+            <label className="text-base font-medium pb-1">Password</label>
+            <input
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              type="password"
+              placeholder="Enter your correct password"
+              className="bg-gray-100 outline-none p-4 rounded-sm border border-gray-400"
+              required
+            />
+            <p className={`${formError ? 'block' : 'hidden'} text-red-500`}> Invalid password</p>
+          </div>
+          <p className="text-end">
+            <Link href="/sign-up" className=" mr-auto text-sm text-[#5D5FEF]">
+              Forgot Password?
+            </Link>
+          </p>
+          <button
+            type="submit"
+            className="bg-[#EF5DA8] text-white w-[100%] p-4 rounded-sm shadow-md mt-10 mb-6"
+          >
+            Log in
+          </button>
+        </form>
+        <div className="flex flex-col items-center justify-center mt-6">
+          <div className="flex items-center justify-between w-full md:w-[80%]">
+            <div className="w-[31%]">
+              <Image src={Line} alt="line" className="w-[100%] text-center" />
+            </div>
+            <p className="text-xs lg:text-sm text-center text-gray-400 w-[32%]">Or continue with</p>
+            <div className="w-[31%]">
+              <Image src={Line} alt="line" className="w-[100%] text-center" />
+            </div>
+          </div>
+          <div className="my-6">
+            <Image src={GoogleIcon} alt="google_logo" />
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+};
+
+export default LoginPage;

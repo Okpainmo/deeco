@@ -5,6 +5,10 @@ module.exports = {
 
 module.exports = {
   images: {
-    domains: ['fakestoreapi.com']
+    remotePatterns: [
+      {
+        hostname: 'fakestoreapi.com'
+      }
+    ]
   }
 };
