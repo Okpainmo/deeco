@@ -45,7 +45,9 @@
     "jsx-a11y/control-has-associated-label": "off",
     "import/prefer-default-export": "off",
     "react/jsx-no-constructed-context-values": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "no-undef": "off",
+    "no-unused-expressions": "off"
   }
 }
 

@@ -100,7 +100,7 @@ function SignUp() {
               </div>
             </div>
           </section>
-          <div class="hidden lg:block mx-10 border-l border-gray-500 h-96" />
+          <div className="hidden lg:block mx-10 border-l border-gray-500 h-96" />
           <section className="section-two-info hidden lg:block ">
             <h2 className="text-black text-lg font-bold">Join thousand of users!</h2>
             <p className="mb-4">
