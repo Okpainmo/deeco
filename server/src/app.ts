@@ -6,6 +6,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRouter from './microservices/user/routes/auth.router.js';
 // import authMiddleware from './middlewares/authMiddleware.js';
+
+// @ts-ignore
 import type { Request, Response } from 'express';
 
 // dependency inits
