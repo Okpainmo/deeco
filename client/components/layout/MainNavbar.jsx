@@ -22,10 +22,16 @@ function MainNavbar({ showMobileNav }) {
       </Link>
       <Navlinks />
       <div className="hidden lg:inline-flex items-center text-base font-blod">
-        <button className="inline-flex place-items-center h-[2.3rem] bg-transparent text-[#000000] p-[10px]">
+        <button
+          type="button"
+          className="inline-flex place-items-center h-[2.3rem] bg-transparent text-[#000000] p-[10px]"
+        >
           Login
         </button>
-        <button className="inline-flex place-items-center h-[2.3rem] bg-[#EF5DA8] text-white p-[10px]">
+        <button
+          type="button"
+          className="inline-flex place-items-center h-[2.3rem] bg-[#EF5DA8] text-white p-[10px]"
+        >
           Start selling
         </button>
       </div>
