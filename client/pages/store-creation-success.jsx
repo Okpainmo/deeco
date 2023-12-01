@@ -16,7 +16,7 @@ function StoreCreationSuccess() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clip-path="url(#clip0_738_577)">
+              <g clipPath="url(#clip0_738_577)">
                 <g filter="url(#filter0_d_738_577)">
                   <path d="M4 24L9 19L19 29L39 9L44 14L19 39L4 24Z" fill="#6DBD28" />
                 </g>
@@ -29,7 +29,7 @@ function StoreCreationSuccess() {
                   width="56"
                   height="46"
                   filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB"
+                  colorInterpolationFilters="sRGB"
                 >
                   <feFlood floodOpacity="0" result="BackgroundImageFix" />
                   <feColorMatrix
@@ -83,7 +83,7 @@ function StoreCreationSuccess() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clip-path="url(#clip0_738_511)">
+              <g clipPath="url(#clip0_738_511)">
                 <path d="M216.436 0.121948H0.0917969V138.089H216.436V0.121948Z" fill="#E6E6E6" />
                 <path d="M210.251 17.4264H6.2793V129.927H210.251V17.4264Z" fill="white" />
                 <path d="M216.344 0H0V9.15191H216.344V0Z" fill="#6C63FF" />

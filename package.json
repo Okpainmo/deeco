@@ -3,7 +3,8 @@
     "prepare": "husky install",
     "lint": "npx eslint .",
     "format": "prettier --write .",
-    "lint-staged": "npx lint-staged"
+    "lint-staged": "npx lint-staged",
+    "pre-commit": "lint-staged"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
@@ -18,7 +19,7 @@
     "typescript": "^5.3.2"
   },
   "dependencies": {
-    "@commitlint/config-conventional": "^18.4.3",
-    "commitlint": "^18.4.3"
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3"
   }
 }

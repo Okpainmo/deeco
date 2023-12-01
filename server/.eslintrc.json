@@ -1,5 +1,6 @@
 {
   "extends": ["plugin:prettier/recommended", "prettier"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -9,7 +10,6 @@
   },
   "plugins": ["prettier"],
   "rules": {
-    // "prettier/prettier": "error",
     "prettier/prettier": [
       "error",
       {
@@ -22,6 +22,8 @@
     "no-unused-vars": "off",
     "camelcase": "off",
     "no-param-reassign": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "no-undef": "off"
   }
 }

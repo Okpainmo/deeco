@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import Header from '../../components/layout/Header';
-import GoggleImage from '../../assets/images/goggle.png';
+import Header from '../components/layout/Header';
+import GoggleImage from '../assets/images/goggle.png';
 // import { FaGoogle } from 'react-icons/fa';
 
 function SignUp() {
@@ -100,7 +100,7 @@ function SignUp() {
               </div>
             </div>
           </section>
-          <div className="hidden lg:block mx-10 border-l border-gray-500 h-96" />
+          <div class="hidden lg:block mx-10 border-l border-gray-500 h-96" />
           <section className="section-two-info hidden lg:block ">
             <h2 className="text-black text-lg font-bold">Join thousand of users!</h2>
             <p className="mb-4">

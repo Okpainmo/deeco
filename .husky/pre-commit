@@ -1,4 +1,25 @@
 #!/usr/bin/env sh
+# . "$(dirname -- "$0")/_/husky.sh"
+
+# npm run lint-staged
+
+#!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm run lint-staged
+npm run pre-commit
+# # Get the current directory
+# current_dir=$(pwd)
+
+# # Run actions based on the current directory
+# case "$current_dir" in
+#   *client*)
+#     cd ./client && npm run lint-staged
+#     ;;
+#   *server*)
+#     cd ./server && npm run lint-staged
+#     ;;
+#   # Add more cases for other directories as needed
+#   *)
+#     echo "No actions defined for the current directory: $current_dir"
+#     ;;
+# esac

@@ -6,6 +6,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRouter from './microservices/user/routes/auth.router.js';
 // import authMiddleware from './middlewares/authMiddleware.js';
+
+// @ts-ignore
 import type { Request, Response } from 'express';
 
 // dependency inits
@@ -29,7 +31,7 @@ import dbConnector from './db/connect-db.js';
 
 // @ts-ignore
 app.get('/', (req: Request, res: Response) => {
-  res.status(200).send('API Is Live - welcome to the Terabyte Affiliate Network API server');
+  res.status(200).send('API Is Live - welcome to the Deeco API server');
 });
 
 // user end-points - all routed

@@ -8,7 +8,7 @@ import MobileUser from '../assets/images/undraw_mobile_user.png';
 import GoogleIcon from '../assets/images/devicon_google.png';
 import Line from '../assets/images/line.png';
 
-const LoginPage = () => {
+function LoginPage() {
   const router = useRouter();
   const initialFormData = {
     username: '',
@@ -127,6 +127,6 @@ const LoginPage = () => {
       </div>
     </main>
   );
-};
+}
 
 export default LoginPage;
