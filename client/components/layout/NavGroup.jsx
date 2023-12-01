@@ -5,7 +5,7 @@ import MainNavbar from './MainNavbar';
 function NavGroup({ showMobileNav }) {
   return (
     <>
-      <StickyNavbar />
+      {/* <StickyNavbar /> */}
       <MainNavbar showMobileNav={showMobileNav} />
     </>
   );
