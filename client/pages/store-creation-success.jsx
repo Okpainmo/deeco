@@ -16,7 +16,7 @@ function StoreCreationSuccess() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clip-path="url(#clip0_738_577)">
+              <g clipPath="url(#clip0_738_577)">
                 <g filter="url(#filter0_d_738_577)">
                   <path d="M4 24L9 19L19 29L39 9L44 14L19 39L4 24Z" fill="#6DBD28" />
                 </g>
