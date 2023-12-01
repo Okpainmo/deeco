@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import Header from '../../components/layout/Header';
-import GoggleImage from '../../assets/images/goggle.png';
+import Header from '../components/layout/Header';
+import GoggleImage from '../assets/images/goggle.png';
 // import { FaGoogle } from 'react-icons/fa';
 
 function SignUp() {
