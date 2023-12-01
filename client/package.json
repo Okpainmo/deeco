@@ -6,7 +6,6 @@
     "start": "next start",
     "lint": "npx eslint .",
     "format": "prettier --write .",
-    "prepare": "husky install",
     "pre-commit": "lint-staged"
   },
   "dependencies": {
@@ -35,7 +34,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "husky": "^8.0.3",
     "lint-staged": "^15.1.0",
     "postcss": "^8.4.18",
     "prettier": "2.7.1",

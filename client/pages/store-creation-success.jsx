@@ -29,7 +29,7 @@ function StoreCreationSuccess() {
                   width="56"
                   height="46"
                   filterUnits="userSpaceOnUse"
-                  color-interpolation-filters="sRGB"
+                  colorInterpolationFilters="sRGB"
                 >
                   <feFlood flood-opacity="0" result="BackgroundImageFix" />
                   <feColorMatrix
