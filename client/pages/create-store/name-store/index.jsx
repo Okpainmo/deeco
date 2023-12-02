@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import MainAppLayout from '../../../components/layout/MainAppLayout';
-import Link from 'next/link';
-import web_shopping from '../../../assets/images/web_shopping.png';
 import Image from 'next/image';
+import Link from 'next/link';
 
-const NameStore = () => {
+import MainAppLayout from '../../../components/layout/MainAppLayout';
+import web_shopping from '../../../assets/images/web_shopping.png';
+
+function NameStore() {
   const initialFormData = {
     store_name: '',
     description: ''
@@ -46,7 +47,7 @@ const NameStore = () => {
                   placeholder="a short description about your store"
                   required
                   className="bg-gray-50 outline-none p-4 rounded-sm border border-gray-400"
-                ></textarea>
+                />
               </div>
               <p className="text-sm text-gray-500">
                 A unique name and description is sure to make you stands out.
@@ -72,6 +73,6 @@ const NameStore = () => {
       </div>
     </MainAppLayout>
   );
-};
+}
 
 export default NameStore;
