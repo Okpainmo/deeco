@@ -38,6 +38,20 @@ Specs:
 
 1. For The Backend(Node) app.
 
+- Building Docker image
+
 ```shell
 docker run -d -p 5000:8080 -e DB_URI="***" -e JWT_SECRET="***" -e JWT_LIFETIME="***" --name deeco-backend-server deeco-backend-server-image
+```
+
+- Tagging Docker image for push.
+
+```shell
+docker image tag deeco-backend-server-image okpainmo/deeco-backend-server-image:latest
+```
+
+- Pushing image to Docker.
+
+```shell
+docker image push okpainmo/deeco-backend-server-image:latest
 ```
