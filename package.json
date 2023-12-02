@@ -3,10 +3,12 @@
     "prepare": "husky install",
     "lint": "npx eslint .",
     "format": "prettier --write .",
-    "lint-staged": "npx lint-staged"
+    "lint-staged": "npx lint-staged",
+    "pre-commit": "lint-staged"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
+    "@commitlint/config-conventional": "^18.4.3",
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
     "eslint": "^8.54.0",
