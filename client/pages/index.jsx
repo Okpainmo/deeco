@@ -66,8 +66,10 @@ function LoginPage() {
       <div className="w-[90%] md:w-[80%] lg:w-[40%] border rounded-sm bg-white shadow-md p-4 my-8 md:p-8">
         <h1 className="font-bold text-3xl text-center mt-4">Log in to Deeco</h1>
         <h1 className="text-sm text-center py-6">
-          Don't have an account?
-          <span className="text-[#5D5FEF]"> Create one for free</span>
+          Don't have an account?{' '}
+          <Link href="/sign-up" className="text-[#5D5FEF]">
+            Create one for free
+          </Link>
         </h1>
         <form className="" onSubmit={handleSubmit} method="POST">
           <div className="flex flex-col mb-4">

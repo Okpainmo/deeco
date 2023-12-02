@@ -27,7 +27,7 @@ function Navbar() {
           </Link>
           <button
             type="button"
-            className="hidden lg:inline-flex place-items-center text-lg text-white font-bold bg-[#EB4899] h-[2.7rem] p-5 rounded-xl"
+            className="hidden lg:inline-flex place-items-center text-lg text-white font-bold bg-[#EB4899] h-[2.7rem] p-5"
           >
             Connect wallet
           </button>

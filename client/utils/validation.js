@@ -4,8 +4,8 @@ const isValidEmail = (email) => {
 };
 
 const isValidPassword = (password) => {
-  const passwordRegrex = /^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[]:;<>,.?~\\-]).{8,}$/;
-  return passwordRegrex.test(email);
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\-]).{8,}$/;
+  return passwordRegex.test(password);
 };
 
 export { isValidEmail, isValidPassword };
