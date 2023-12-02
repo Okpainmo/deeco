@@ -1,7 +1,7 @@
-import React from 'react';
+import MainAppLayout from '../../components/dashboard/layout/MainAppLayout';
 
 function UserDashboard() {
-  return <div>UserDashboard</div>;
+  return <MainAppLayout>Hello</MainAppLayout>;
 }
 
 export default UserDashboard;
