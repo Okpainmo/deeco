@@ -10,6 +10,7 @@ import Line from '../assets/images/line.png';
 
 function LoginPage() {
   const router = useRouter();
+
   const initialFormData = {
     username: '',
     password: ''

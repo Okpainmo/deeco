@@ -4,14 +4,81 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
 
 import Header from '../../components/layout/Header';
+import Notification from '../../components/Notification';
 import GoggleImage from '../../assets/images/goggle.png';
-import { isValidEmail, isValidPassword } from '../../utils/validation';
+import { isValidPassword } from '../../utils/validation';
 // import { FaGoogle } from 'react-icons/fa';
 
 function SignUp() {
   const router = useRouter();
+
+  const showToast = () => {
+    toast.custom(
+      (t) => (
+        <Notification toast={t}>
+          <div class="flex flex-col gap-2">
+            <div>
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19.9997 36.6667C29.2044 36.6667 36.6663 29.2047 36.6663 20C36.6663 10.7953 29.2044 3.33333 19.9997 3.33333C10.7949 3.33333 3.33301 10.7953 3.33301 20C3.33301 29.2047 10.7949 36.6667 19.9997 36.6667Z"
+                  stroke="#EF5DA8"
+                  strokeWidth="3.33333"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M20 26.6667V20"
+                  stroke="#EF5DA8"
+                  strokeWidth="3.33333"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M20 13.3333H20.0167"
+                  stroke="#EF5DA8"
+                  strokeWidth="3.33333"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <h3 class="text-black text-lg font-bold">
+              An account already exists with the provided email.
+            </h3>
+            <div class="flex py-4 gap-2">
+              <button
+                onClick={() => toast.dismiss(t.id)}
+                type="button"
+                className="inline-flex items-center justify-center bg-white text-[#1519208e] p-3 h-[42px] border border-[#56678968] w-full"
+              >
+                Use a different Email
+              </button>
+              <Link
+                onClick={() => toast.dismiss(t.id)}
+                href="/"
+                className="inline-flex items-center justify-center bg-[#EF5DA8] text-white p-3 h-[42px] w-full"
+              >
+                Login
+              </Link>
+            </div>
+          </div>
+        </Notification>
+      ),
+      {
+        duration: 1000
+      }
+    );
+  };
+
   const initialFormDataValue = {
     email: '',
     fullName: '',
@@ -71,6 +138,10 @@ function SignUp() {
 
       const data = await res.json();
 
+      if (data.response && data.responseMessage === 'profile creation failed: please try again') {
+        showToast();
+      }
+
       if (data.response && data.responseMessage === 'user sign-up/registration successful') {
         router.push(`/dashboard`);
       }
@@ -78,6 +149,7 @@ function SignUp() {
       throw new Error(e);
     }
   };
+
   return (
     <main className="min-h-screen px-3 py-8">
       <Header />
