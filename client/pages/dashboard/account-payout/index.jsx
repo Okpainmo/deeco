@@ -10,7 +10,7 @@ function AccountPayout() {
   return (
     <MainAppLayout>
       <div className="flex gap-4 flex-1">
-        <aside className="basis-full max-w-[50rem] bg-white ml-auto shadow-md overflow-hidden">
+        <aside className="basis-full bg-white ml-auto shadow-md overflow-hidden">
           <div className="py-4 px-9 border-b border-b-[#E0E0E0]">
             <h3 className="text-xl font-bold text-[#1E1E1E]">Payout</h3>
           </div>

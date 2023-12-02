@@ -19,7 +19,7 @@ function SignUp() {
     toast.custom(
       (t) => (
         <Notification toast={t}>
-          <div class="flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <div>
               <svg
                 width="40"
@@ -51,10 +51,10 @@ function SignUp() {
                 />
               </svg>
             </div>
-            <h3 class="text-black text-lg font-bold">
+            <h3 className="text-black text-lg font-bold">
               An account already exists with the provided email.
             </h3>
-            <div class="flex py-4 gap-2">
+            <div className="flex py-4 gap-2">
               <button
                 onClick={() => toast.dismiss(t.id)}
                 type="button"
