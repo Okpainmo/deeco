@@ -1,13 +1,10 @@
-import userModel from '../models/userModel.js';
-
-export async function findUser(userData: { email: string | undefined }) {
+import storeModel from '../models/store.model.js';
+export async function findStore(userId) {
   try {
-    const { email } = userData;
-    const user = await userModel.findOne({
-      email
+    const store = await storeModel.findOne({
+      createdBy: userId
     });
-
-    return user;
+    return store;
   } catch (error) {
     if (error instanceof Error) {
       console.log(error.message);
