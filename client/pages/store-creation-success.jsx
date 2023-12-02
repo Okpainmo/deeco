@@ -65,7 +65,7 @@ function StoreCreationSuccess() {
           </div>
 
           <div className="flex flex-col justify-center items-center gap-[1rem] max-w-[28.125rem] mx-auto">
-            <h2 class="text-[2.5rem] font-medium text-[#EF5DA8]"> Andrew,s Shoes </h2>
+            <h2 className="text-[2.5rem] font-medium text-[#EF5DA8]"> Andrew,s Shoes </h2>
             <p className="text-xl font-normal">Everything shoes’s we got you covered.</p>
             <Link
               href="/dashboard"
