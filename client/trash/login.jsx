@@ -1,6 +1,11 @@
 import { useState } from 'react';
+// import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-const login = () => {
+function LoginPage() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -15,13 +20,13 @@ const login = () => {
   };
 
   const handleLogin = () => {
-    navigate('/signup/next-stage');
+    router.push('/signup/next-stage');
   };
 
   return (
     <main className="bg-gray-100 flex justify-evenly">
       <div className="w-[30%] lg:flex items-end justify-end hidden mb-2 ">
-        <img src="images/undraw_mobile_user.png" alt="Mobile User" />
+        <Image src="images/undraw_mobile_user.png" alt="Mobile User" />
       </div>
       <div className="w-[90%] md:w-[80%] lg:w-[40%] border rounded-sm bg-white shadow-md p-4 my-8 md:p-8">
         <h1 className="font-bold text-3xl text-center mt-4">Log in to Deeco</h1>
@@ -54,6 +59,7 @@ const login = () => {
           </div>
           <p className="text-end text-sm text-[#5D5FEF]">Forgot Password?</p>
           <button
+            type="button"
             className="bg-[#EF5DA8] text-white w-[100%] p-4 rounded-sm shadow-md mt-10 mb-6"
             onClick={handleLogin}
           >
@@ -62,22 +68,21 @@ const login = () => {
         </form>
         <div className="flex flex-col items-center justify-center mt-6">
           <div className="flex items-center justify-between w-full md:w-[80%]">
-            <div className='w-[31%]'>
-              <img src="images/Line.png" alt="line" className='w-[100%] text-center'/>
+            <div className="w-[31%]">
+              <Image src="images/Line.png" alt="line" className="w-[100%] text-center" />
             </div>
             <p className="text-xs lg:text-sm text-center text-gray-400 w-[32%]">Or continue with</p>
-            <div className='w-[31%]'>
-              <img src="images/Line.png" alt="line" className='w-[100%] text-center'/>
+            <div className="w-[31%]">
+              <Image src="images/Line.png" alt="line" className="w-[100%] text-center" />
             </div>{' '}
           </div>
-          <div className='my-6'>
-            <img src='images/devicon_google.png' alt='google_logo' />
+          <div className="my-6">
+            <Image src="images/devicon_google.png" alt="google_logo" />
           </div>
         </div>
       </div>
     </main>
   );
-};
+}
 
-export default login;
-
+export default LoginPage;

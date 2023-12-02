@@ -13,8 +13,7 @@ function MainNavbar({ showMobileNav }) {
   return (
     <nav
       className="bg--glass w-full py-2 px-3 sm:px-8 lg:px-20 md:py-4 flex justify-between
-    z-30 items-center montserrat mt-[50px] "
-      style={{ boxShadow: '0 0 15px 2px rgb(0 0 0 / 5%)' }}
+    z-30 items-center montserrat"
     >
       <Link href="/">
         <div className="brand--colors italic text--colors_default montserrat text-[16px] px-2 border-[3px] text-center">
@@ -22,13 +21,27 @@ function MainNavbar({ showMobileNav }) {
         </div>
       </Link>
       <Navlinks />
-      <aside className="flex gap-4 lg:gap-0 items-center">
-        <DynamicThemeSwitcher />
+      <div className="hidden lg:inline-flex items-center text-base font-blod">
+        <button
+          type="button"
+          className="inline-flex place-items-center h-[2.3rem] bg-transparent text-[#000000] p-[10px]"
+        >
+          Login
+        </button>
+        <button
+          type="button"
+          className="inline-flex place-items-center h-[2.3rem] bg-[#EF5DA8] text-white p-[10px]"
+        >
+          Start selling
+        </button>
+      </div>
+      <aside className="flex lg:hidden gap-4 lg:gap-0 items-center">
+        {/* <DynamicThemeSwitcher /> */}
         <button
           onClick={showMobileNav}
           type="button"
-          className="menu-button rounded-full w-[35px] 
-          h-[35px] p-[7px] lg:w-[40px] lg:h-[40px] border lg:hidden"
+          className="rounded-full w-[35px] 
+          h-[35px] p-[7px] lg:w-[40px] lg:h-[40px] border"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

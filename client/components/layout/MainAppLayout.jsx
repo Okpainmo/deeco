@@ -22,7 +22,7 @@ function MainAppLayout({ children }) {
 
   //  console.log(closeMobileNav);
   return (
-    <main className="overflow-hidden">
+    <main className="overflow-hidden pt-8">
       <MobileMenuBar hideMobileNav={hideMobileNav} closeMobileNav={closeMobileNav} />
 
       <NavGroup showMobileNav={showMobileNav} />
