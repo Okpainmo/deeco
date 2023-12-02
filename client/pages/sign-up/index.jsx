@@ -1,26 +1,171 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
+
 import Header from '../../components/layout/Header';
+import Notification from '../../components/Notification';
 import GoggleImage from '../../assets/images/goggle.png';
+import { isValidPassword } from '../../utils/validation';
 // import { FaGoogle } from 'react-icons/fa';
 
 function SignUp() {
+  const router = useRouter();
+
+  const showToast = () => {
+    toast.custom(
+      (t) => (
+        <Notification toast={t}>
+          <div class="flex flex-col gap-2">
+            <div>
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19.9997 36.6667C29.2044 36.6667 36.6663 29.2047 36.6663 20C36.6663 10.7953 29.2044 3.33333 19.9997 3.33333C10.7949 3.33333 3.33301 10.7953 3.33301 20C3.33301 29.2047 10.7949 36.6667 19.9997 36.6667Z"
+                  stroke="#EF5DA8"
+                  strokeWidth="3.33333"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M20 26.6667V20"
+                  stroke="#EF5DA8"
+                  strokeWidth="3.33333"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M20 13.3333H20.0167"
+                  stroke="#EF5DA8"
+                  strokeWidth="3.33333"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <h3 class="text-black text-lg font-bold">
+              An account already exists with the provided email.
+            </h3>
+            <div class="flex py-4 gap-2">
+              <button
+                onClick={() => toast.dismiss(t.id)}
+                type="button"
+                className="inline-flex items-center justify-center bg-white text-[#1519208e] p-3 h-[42px] border border-[#56678968] w-full"
+              >
+                Use a different Email
+              </button>
+              <Link
+                onClick={() => toast.dismiss(t.id)}
+                href="/"
+                className="inline-flex items-center justify-center bg-[#EF5DA8] text-white p-3 h-[42px] w-full"
+              >
+                Login
+              </Link>
+            </div>
+          </div>
+        </Notification>
+      ),
+      {
+        duration: 1000
+      }
+    );
+  };
+
+  const initialFormDataValue = {
+    email: '',
+    fullName: '',
+    password: '',
+    confirmPassword: ''
+  };
+
+  const initialFormDataSet = {
+    password: false,
+    confirmPassword: false
+  };
+
+  const [formData, setFormData] = useState(initialFormDataValue);
+  const [formError, setFormError] = useState(initialFormDataSet);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+    setFormError(initialFormDataSet);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!isValidPassword(formData.password)) {
+      setFormError((prevFormError) => ({
+        ...prevFormError,
+        password: true
+      }));
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setFormError((prevFormError) => ({
+        ...prevFormError,
+        confirmPassword: true
+      }));
+      return;
+    }
+
+    try {
+      const res = await fetch(`https:/deeco-backend-server.onrender.com/api/v1/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword
+        })
+      });
+
+      const data = await res.json();
+
+      if (data.response && data.responseMessage === 'profile creation failed: please try again') {
+        showToast();
+      }
+
+      if (data.response && data.responseMessage === 'user sign-up/registration successful') {
+        router.push(`/dashboard`);
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
+
   return (
-    <main className="min-h-screen mt-[20px] px-3 sm:mx-auto sm:w-[450px] lg:w-[800px]">
+    <main className="min-h-screen px-3 py-8">
       <Header />
-      <div className="border-2 p-4">
+      <div className="border-2 p-6 mt-8 sm:mx-auto sm:w-[450px] lg:w-[1000px]">
         <div className="login-option-wrapper flex flex-col mb-4 lg:mb-2">
-          <h3 className="capitalize text-black font-bold text-base">create your deeco account</h3>
-          <p className="opacity-100 text-sm  text-[#171A1FFF]">
+          <h3 className="capitalize text-black font-bold text-2xl">create your deeco account</h3>
+          <p className="opacity-100 text-md  text-[#171A1FFF]">
             Already have an account?{' '}
-            <Link href="/sign-in" className="no-underline text-blue-300 font-bold">
+            <Link href="/" className="no-underline text-blue-300 font-bold">
               Sign in
-            </Link>{' '}
+            </Link>
           </p>
         </div>
-        <div className="flex flex-col items-center lg:flex-row w-full">
+        <div className="flex flex-col  lg:flex-row w-full">
           <section className="section-one-info w-full">
-            <form className="w-full text-[12px]">
+            <form className="w-full text-[14px]" onSubmit={handleSubmit}>
               <div className="input-group for-email mb-5 flex flex-col gap-2">
                 <label
                   htmlFor="email"
@@ -30,30 +175,36 @@ function SignUp() {
                 </label>
                 <div className="relative">
                   <input
-                    className="p-1 border-gray-900 py-2 bg-[#F3F4F6FF] text-[#BDC1CAF] placeholder-gray-400 
-                appearance-none w-full block focus:outline-none border-none bg-gray-100 rounded-sm"
+                    className="px-4 py-2  text-[#BDC1CAF] placeholder-gray-400 
+                    appearance-none w-full block focus:outline-none border border-[#C2C2C2] rounded-sm h-12"
                     required
+                    name="email"
+                    value={formData.email}
                     type="email"
                     placeholder="Enter email"
                     id="email"
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>
               <div className="input-group for-Full-Name mb-5 flex flex-col gap-2">
                 <label
-                  htmlFor="full-name"
+                  htmlFor="fullName"
                   className="flex gap-6 align-center opacity-70 focus-within:text-gray-600 font-bold"
                 >
                   Full Name*
                 </label>
                 <div className="relative">
                   <input
-                    className="p-1 border-gray-900 py-2 bg-[#F3F4F6FF] text-[#BDC1CAF] placeholder-gray-400 
-                appearance-none w-full block focus:outline-none border-none bg-gray-100 rounded-sm"
+                    className="px-4 py-2  text-[#BDC1CAF] placeholder-gray-400 
+                    appearance-none w-full block focus:outline-none border border-[#C2C2C2] rounded-sm h-12"
                     required
-                    type="email"
-                    placeholder="Enter email"
-                    id="email"
+                    name="fullName"
+                    value={formData.fullName}
+                    type="text"
+                    placeholder="Enter fullname"
+                    id="fullName"
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>
@@ -66,18 +217,55 @@ function SignUp() {
                 </label>
                 <div className="relative">
                   <input
-                    className="p-1 border-gray-900 py-2  bg-[#F3F4F6FF] text-[#BDC1CAF] placeholder-gray-400 
-                appearance-none w-full block focus:outline-none border-none bg-gray-100 rounded-sm"
+                    className="px-4 py-2  text-[#BDC1CAF] placeholder-gray-400 
+                    appearance-none w-full block focus:outline-none border border-[#C2C2C2] rounded-sm h-12"
                     required
                     type="password"
+                    name="password"
+                    value={formData.password}
                     placeholder="Enter password"
                     id="password"
+                    onChange={handleInputChange}
                   />
                 </div>
+                <ul className={`${formError.password ? 'block' : 'hidden'} text-red-500`}>
+                  <li>At least one digit/number.</li>
+                  <li>At least one lowercase letter.</li>
+                  <li>At least one uppercase letter.</li>
+                  <li>At least one special character</li>
+                  <li>The total length of the password must be at least 8 characters.</li>
+                </ul>
+                <p className={`${formError.confirmPassword ? 'block' : 'hidden'} text-red-500`}>
+                  Passwords mismattch
+                </p>
+              </div>
+              <div className="input-group for-password mb-5 flex flex-col gap-2">
+                <label
+                  htmlFor="password"
+                  className="flex gap-6 align-center opacity-70 focus-within:text-gray-600 font-bold"
+                >
+                  Confirm Password*
+                </label>
+                <div className="relative">
+                  <input
+                    className="px-4 py-2  text-[#BDC1CAF] placeholder-gray-400 
+                    appearance-none w-full block focus:outline-none border border-[#C2C2C2] rounded-sm h-12"
+                    required
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    placeholder="Confirm password"
+                    id="confirmPassword"
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <p className={`${formError.confirmPassword ? 'block' : 'hidden'} text-red-500`}>
+                  Passwords mismattch
+                </p>
               </div>
               <div className="submit-button-wrapper mb-3">
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full px-4 submit bg-pink-400 py-3 font-bold poppins rounded text-[0.9rem] text-white capitalize"
                 >
                   sign up
@@ -93,7 +281,7 @@ function SignUp() {
                   <div className="px-[4px] sm:px-1 text-[8px] text-xs">or continue with</div>
                 </div>
               </div>
-              <div className="flex justify-center my-5">
+              <div className="flex justify-center mt-5">
                 <Link href="/log-in" className="no-underline text-blue-300 font-bold">
                   <Image src={GoggleImage} alt="goggle" className="block h-10 w-10" />
                 </Link>{' '}
