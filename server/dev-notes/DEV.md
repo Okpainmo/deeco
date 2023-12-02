@@ -39,5 +39,5 @@ Specs:
 1. For The Backend(Node) app.
 
 ```shell
-docker run -d -p 5000:5050 -e DB_URI="***" -e JWT_SECRET="***" -e JWT_LIFETIME="***" --name terabyte-backend-server terabyte-backend-server-image
+docker run -d -p 5000:8080 -e DB_URI="***" -e JWT_SECRET="***" -e JWT_LIFETIME="***" --name deeco-backend-server deeco-backend-server-image
 ```
