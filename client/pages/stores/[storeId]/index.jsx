@@ -3,17 +3,15 @@ import HomeHero from '../../../components/store-front/HomeHero';
 import MainAppLayout from '../../../components/store-front/layout/MainAppLayout';
 import ProductsSection from '../../../components/store-front/ProductsSection';
 import { ContractContext } from '../../../context/ContractContext';
-import { baseAPI_URL } from '../../../config';
 // import { CartContext } from '../context/CartContext';
 
-function Home({ userStoreData }) {
+function Home({ trendingProducts }) {
   const [dbCart, setDbCart] = useState('');
-  console.log(userStoreData.response.storeData.products);
 
   return (
     <MainAppLayout>
       {/* <HomeHero /> */}
-      <ProductsSection userStoreData={userStoreData} />
+      <ProductsSection trendingProducts={trendingProducts} />
     </MainAppLayout>
   );
 }
@@ -21,14 +19,39 @@ function Home({ userStoreData }) {
 export default Home;
 
 export async function getServerSideProps(context) {
-  const { params } = context;
-  const response = await fetch(`${baseAPI_URL}/api/v1/store/get-all-store-data/${params.storeId}`);
+  // const { params } = context;
+  const response = await fetch('https://fakestoreapi.com/products?limit=9');
+  const trendingProducts = await response.json();
 
-  const userStoreData = await response.json();
+  // const fetchResponse = await fetch('https://api.coingecko.com/api/v3/coins/matic-network');
+  // const coinData = await fetchResponse.json();
+  // console.log(trendingProducts);
 
+  /* ** dev: trying out fetching firebase data with SSR - odd I guess ** */
+
+  // async function getCart() {
+  //   await getDocs(collection(db, 'userCart')).then((data) => {
+  //     const dbCartData = data.docs.map((item) => {
+  //       return { ...item.data(), id: item.id };
+  //     });
+
+  //     // setDbCart(dbCartData);
+
+  //     // console.log(
+  //     //   data.docs.map((item) => {
+  //     //     return { ...item.data(), id: item.id };
+  //     //   })
+  //     // );
+
+  //     // setDbCart(...item.data);
+  //     // console.log(dbCartData);
+  //   });
+  // }
+
+  // console.log(coinData);
   return {
     props: {
-      userStoreData
+      trendingProducts
     }
   };
 }

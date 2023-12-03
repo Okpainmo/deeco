@@ -2,11 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import ProductItem from './ProductItem';
 
-function ProductsWrapper({ userStoreData }) {
+function ProductsWrapper({ trendingProducts }) {
   return (
     <>
       <section className="products-wrapper mt-6 md:mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-8">
-        {userStoreData.response.storeData.products.map((product) => {
+        {trendingProducts.map((product) => {
           return <ProductItem key={product.id} product={product} />;
         })}
       </section>
