@@ -23,7 +23,7 @@ function ThemeCard({
             by {themeAuthor} in {themeType}
           </p>
           <ul className="text-base list-disc pl-4 py-4">
-            {themeDetails.map((list) => {
+            {themeDetails?.map((list) => {
               return <li key={list.slice(0, 10)}>{list}</li>;
             })}
           </ul>
