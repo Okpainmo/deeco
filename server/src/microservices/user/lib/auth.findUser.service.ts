@@ -1,9 +1,8 @@
 import userModel from '../models/userModel.js';
 
-export async function findUser(userData: { email: string }) {
-  const { email } = userData;
-
+export async function findUser(userData: { email: string | undefined }) {
   try {
+    const { email } = userData;
     const user = await userModel.findOne({
       email
     });

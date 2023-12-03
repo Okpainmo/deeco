@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import MainAppLayout from '../../../components/dashboard/layout/MainAppLayout';
+import MainAppLayout from '../../../components/layout/MainAppLayout';
 import OrderCard from './components/order-card';
 
 import Mock_1 from '../../../assets/images/mock-1.png';

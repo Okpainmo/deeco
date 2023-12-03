@@ -1,14 +1,54 @@
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-
+import { toast } from 'react-hot-toast';
+import axios from 'axios';
 import MainAppLayout from '../../components/layout/MainAppLayout';
+import { baseAPI_URL } from '../../config';
 
 function StoreCreationSuccess() {
+  const [storeData, setStoreData] = useState(null);
+
+  useEffect(() => {
+    const url = `${baseAPI_URL}/api/v1/store/get-store`;
+
+    const handleFetchData = async () => {
+      const toastId = toast.loading('fetching store data...');
+
+      const userAccessToken = localStorage.getItem('userToken');
+      const userEmail = localStorage.getItem('userEmail');
+
+      const requestHeadersObject = {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+          Email: `${userEmail}`
+        }
+      };
+
+      const { data: fetchedData } = await axios.get(url, requestHeadersObject);
+
+      if (fetchedData && fetchedData.responseMessage === 'store data fetched successfully') {
+        toast.success('store data fetched successfully. please proceed to your Dashboard', {
+          id: toastId,
+          duration: 4000
+        });
+      }
+
+      setStoreData(fetchedData);
+      console.log(storeData);
+    };
+
+    handleFetchData();
+  }, [storeData]);
+
   return (
     <MainAppLayout>
       <main>
-        <section className="relative flex flex-col place-content-center py-20 px-8 min-h-screen">
-          <div className="flex justify-center items-center gap-4 mb-16">
-            <h1 className="text-[2.5rem] font-medium">Store created.</h1>
+        <section className="relative flex flex-col pt-28 px-8 min-h-screen">
+          <div className="flex flex-col justify-center items-center gap-4 mb-16">
+            <h1 className="text-3xl poppins font-bold text-center leading-[35px]">
+              Store created successfully.
+            </h1>
             <svg
               width="48"
               height="48"
@@ -64,14 +104,32 @@ function StoreCreationSuccess() {
             </svg>
           </div>
 
-          <div className="flex flex-col justify-center items-center gap-[1rem] max-w-[28.125rem] mx-auto">
-            <h2 className="text-[2.5rem] font-medium text-[#EF5DA8]"> Andrew,s Shoes </h2>
-            <p className="text-xl font-normal">Everything shoes’s we got you covered.</p>
-            <Link
-              href="/dashboard"
-              className="inline-flex justify-center items-center bg-[#EF5DA8] text-white text-xl font-bold h-[3.8125rem] py-4 mt-7 w-full"
-            >
-              Process to dashboard
+          <div className="flex flex-col justify-center items-center mx-auto gap-6">
+            {!storeData ? (
+              <div className="text-center flex gap-y-4 flex-col">
+                <h2 className="text-2xl text-[#EF5DA8] poppins font-bold">"--- --- ---"</h2>
+                <p className="text-[16px] text-center w-full sm:px-[20px] md:w-[600px] md:mx-auto">
+                  "--- --- --- --- --- --- ---"
+                </p>
+              </div>
+            ) : (
+              <div className="text-center flex gap-y-4 flex-col">
+                <h2 className="text-2xl text-[#EF5DA8] poppins font-bold">
+                  {storeData.response.store.storeName}
+                </h2>
+                <p className="text-[16px] text-center w-full sm:px-[20px] md:w-[600px] md:mx-auto">
+                  {storeData.response.store.storeDescription}
+                </p>
+              </div>
+            )}
+
+            <Link href="/dashboard">
+              <button
+                type="button"
+                className="items-center bg-[#EF5DA8] text-white text-xl font-bold py-3 px-6 mt-7"
+              >
+                Process to dashboard
+              </button>
             </Link>
           </div>
 

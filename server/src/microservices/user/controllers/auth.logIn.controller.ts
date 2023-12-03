@@ -5,7 +5,7 @@ import decryptPassword from '../../../utils/decryptPassword.js';
 import generateTokens from '../../../utils/generateTokens.js';
 import { validatePasswordWithRegex } from '../../../utils/validatePasswordWithRegex.js';
 
-// description: Authenticate user, set refresh-token(cookie), & send access-token(jwt).
+// description: Authenticate user, set refresh-token(cookie), & send back relevant data with access-token(jwt).
 // request: POST
 // route: '/api/v1/auth/log-in';
 // access: Private
@@ -31,7 +31,7 @@ const loginUser = async (req: Request<{}, loginUserResponseSpecs, loginSpecs>, r
     if (!email || !password) {
       return res.status(400).json({
         error: 'access denied',
-        responseMessage: 'user input missing: please provide all input fields'
+        responseMessage: 'user input missing: please fill all input fields'
       });
     }
 
@@ -72,7 +72,7 @@ const loginUser = async (req: Request<{}, loginUserResponseSpecs, loginSpecs>, r
       const { refreshToken } = generatedTokens;
 
       // set refresh token as cookie for authorization purposes
-      res.cookie('TerabyteTechnologies_SecretRefreshToken', refreshToken, {
+      res.cookie('DeecoCommerce_SecretRefreshToken', refreshToken, {
         httpOnly: true,
         secure: true,
         sameSite: 'strict', // Prevent CSRF attacks

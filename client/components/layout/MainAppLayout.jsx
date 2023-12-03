@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
+import { ContractContext } from '../../context/ContractContext';
 import NavGroup from './NavGroup';
 import Footer from './Footer';
 import MobileMenuBar from './MobileMenuBar';
-import { ContractContext } from '../../context/ContractContext';
 
 function MainAppLayout({ children }) {
   const [closeMobileNav, setCloseMobileNav] = useState(true);
@@ -22,13 +23,16 @@ function MainAppLayout({ children }) {
 
   //  console.log(closeMobileNav);
   return (
-    <main className="overflow-hidden pt-8">
-      <MobileMenuBar hideMobileNav={hideMobileNav} closeMobileNav={closeMobileNav} />
+    <>
+      <Toaster />
+      <main className="overflow-hidden mt-[56px] sm:mt-[70px]">
+        <MobileMenuBar hideMobileNav={hideMobileNav} closeMobileNav={closeMobileNav} />
 
-      <NavGroup showMobileNav={showMobileNav} />
-      {children}
-      <Footer />
-    </main>
+        <NavGroup showMobileNav={showMobileNav} />
+        {children}
+        <Footer />
+      </main>
+    </>
   );
 }
 
