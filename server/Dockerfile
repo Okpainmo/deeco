@@ -14,8 +14,8 @@ RUN npm install
 COPY /build .
 
 # set port
-ENV PORT=5050
+ENV PORT=8080
 
-EXPOSE 5050
+EXPOSE 8080
 
 CMD ["npm", "start"]

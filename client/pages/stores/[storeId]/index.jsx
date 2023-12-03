@@ -1,25 +1,16 @@
 import React, { useContext, useState, useEffect } from 'react';
-// import { doc, collection, addDoc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
-// import { db } from '../firebaseConfig';
-import HomeHero from '../../components/HomeHero';
-import MainAppLayout from '../../components/layout/MainAppLayout';
-import ProductsSection from '../../components/ProductsSection';
-import { ContractContext } from '../../context/ContractContext';
+import HomeHero from '../../../components/store-front/HomeHero';
+import MainAppLayout from '../../../components/store-front/layout/MainAppLayout';
+import ProductsSection from '../../../components/store-front/ProductsSection';
+import { ContractContext } from '../../../context/ContractContext';
 // import { CartContext } from '../context/CartContext';
 
 function Home({ trendingProducts }) {
   const [dbCart, setDbCart] = useState('');
-  // const { checkMetamaskAccount } = useContext(ContractContext);
-
-  // const number = useContext(CartContext);
-  // console.log(process.env);
-  // console.log(coinData.market_data.current_price.usd);
-
-  // const maticPrice = coinData.market_data.current_price.usd;
 
   return (
     <MainAppLayout>
-      <HomeHero />
+      {/* <HomeHero /> */}
       <ProductsSection trendingProducts={trendingProducts} />
     </MainAppLayout>
   );

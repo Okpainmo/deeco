@@ -8,7 +8,7 @@ const loginUser = async (req, res) => {
     if (!email || !password) {
       return res.status(400).json({
         error: 'access denied',
-        responseMessage: 'user input missing: please provide all input fields'
+        responseMessage: 'user input missing: please fill all input fields'
       });
     }
     const passwordValidationResponse = validatePasswordWithRegex(password);
@@ -40,7 +40,7 @@ const loginUser = async (req, res) => {
       const generatedTokens = await generateTokens(user);
       const { refreshToken } = generatedTokens;
       // set refresh token as cookie for authorization purposes
-      res.cookie('TerabyteTechnologies_SecretRefreshToken', refreshToken, {
+      res.cookie('DeecoCommerce_SecretRefreshToken', refreshToken, {
         httpOnly: true,
         secure: true,
         sameSite: 'strict', // Prevent CSRF attacks

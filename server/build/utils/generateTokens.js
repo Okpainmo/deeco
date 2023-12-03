@@ -6,7 +6,7 @@ async function generateTokens(user) {
   const salt = await bcrypt.genSalt(14);
   const refreshTokenPartA = await bcrypt.hash(user.email, salt);
   const refreshTokenPartB = process.env.JWT_SECRET;
-  const refreshToken = `TerabyteTechnologies_SecretRefreshToken_${refreshTokenPartA}_${refreshTokenPartB}`;
+  const refreshToken = `DeecoCommerce_SecretRefreshToken_${refreshTokenPartA}_${refreshTokenPartB}`;
   // console.log(refreshToken);
   const tokens = {
     accessToken,

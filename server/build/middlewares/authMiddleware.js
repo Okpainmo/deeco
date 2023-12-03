@@ -1,9 +1,5 @@
-import jwt, {
-  // JsonWebTokenError,
-  // NotBeforeError,
-  TokenExpiredError
-} from 'jsonwebtoken';
-// import userModel from '../microservices/user/models/userModel.js';
+import jwt from 'jsonwebtoken';
+// import { TokenExpiredError } from 'jsonwebtoken';
 import {} from 'express';
 import { findUser } from '../microservices/user/lib/auth.findUser.service.js';
 import generateTokens from '../utils/generateTokens.js';
@@ -11,10 +7,10 @@ const authMiddleware = async (req, res, next) => {
   const requestHeaders = req.headers;
   const { email, authorization } = requestHeaders;
   const jwtSecret = process.env.JWT_SECRET;
-  console.log(email);
-  console.log(authorization);
+  // console.log(email);
+  // console.log(authorization);
   try {
-    if (!req.headers.cookie || !req.headers.cookie.includes(`TerabyteTechnologies_SecretRefreshToken`)) {
+    if (!req.headers.cookie || !req.headers.cookie.includes(`DeecoCommerce_SecretRefreshToken`)) {
       return res.status(401).json({
         error: 'access forbidden',
         responseMessage: 'user does not have access to the route - please attempt a fresh log-in'
@@ -22,7 +18,7 @@ const authMiddleware = async (req, res, next) => {
     }
     //check if user exist
     const user = await findUser({ email });
-    console.log(user);
+    // console.log(user);
     if (!user) {
       return res.status(404).json({
         error: 'access forbidden',
@@ -39,9 +35,9 @@ const authMiddleware = async (req, res, next) => {
     // console.log(returnedToken);
     if (returnedToken && user) {
       const decodedJWT = jwt.verify(returnedToken, jwtSecret);
-      console.log(decodedJWT);
-      console.log(decodedJWT.userId);
-      console.log(user._id);
+      // console.log(decodedJWT);
+      // console.log(decodedJWT.userId);
+      // console.log(user._id);
       if (!decodedJWT || decodedJWT.userEmail !== user.email) {
         return res.status(403).json({
           error: 'access forbidden',
@@ -51,33 +47,27 @@ const authMiddleware = async (req, res, next) => {
       const currentTimestampInSeconds = Math.floor(Date.now() / 1000);
       const tokenExpirationTimeInSeconds = decodedJWT.exp;
       if (tokenExpirationTimeInSeconds > currentTimestampInSeconds) {
-        console.log('user access-token/session not expired - proceeding to renew session with new set of tokens');
+        const generatedTokens = await generateTokens(user);
+        const { refreshToken, accessToken } = generatedTokens;
+        const tokenStatus = `user access-token and user session for '${decodedJWT.userEmail}' has been renewed`;
+        // console.log(tokenStatus);
+        req.user = {
+          userId: decodedJWT.userId,
+          userEmail: decodedJWT.userEmail,
+          tokenStatus,
+          renewedUserAccessToken: accessToken,
+          renewedUserRefreshToken: refreshToken
+        };
       }
-      const generatedTokens = await generateTokens(user);
-      const { refreshToken } = generatedTokens;
-      // set refresh token as cookie for authorization purposes
-      res.cookie('TerabyteTechnologies_SecretRefreshToken', refreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict', // Prevent CSRF attacks
-        maxAge: 24 * 60 * 60 * 1000 // 1 days
-      });
-      const { accessToken } = generatedTokens;
-      req.user = {
-        userId: decodedJWT.userId,
-        userEmail: decodedJWT.userEmail,
-        renewedAccessToken: accessToken
-      };
     }
     // proceed to next middleware or route
     next();
   } catch (error) {
-    if (error instanceof TokenExpiredError) {
-      /* access token is expired verify token(ignoring expiry) to make sure it's the user,
+    if (error instanceof Error && error.message === 'jwt expired') {
+      /* Access token is expired. Verify token(ignoring expiry) to make sure it's the user,
             then regenerate new tokens(access and refresh) and pass from middleware */
-      console.log('user access-token/session is expired - proceeding to renew session with new set of tokens');
       const user = await findUser({ email });
-      console.log(`catch block ${user}`);
+      // console.log(`catch block ${user}`);
       if (!user) {
         return res.status(404).json({
           error: 'access forbidden',
@@ -85,42 +75,32 @@ const authMiddleware = async (req, res, next) => {
         });
       }
       const generatedTokens = await generateTokens(user);
-      const { refreshToken } = generatedTokens;
-      // set refresh token as cookie for authorization purposes
-      res.cookie('TerabyteTechnologies_SecretRefreshToken', refreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict', // Prevent CSRF attacks
-        maxAge: 24 * 60 * 60 * 1000 // 1 days
-      });
-      const { accessToken } = generatedTokens;
+      const { refreshToken, accessToken } = generatedTokens;
       const decodedJWT = jwt.verify(accessToken, jwtSecret, {
         ignoreExpiration: true
       });
-      console.log(decodedJWT);
-      console.log(decodedJWT.userId);
-      console.log(user._id);
+      // console.log(decodedJWT);
+      // console.log(decodedJWT.userId);
+      // console.log(user._id);
       if (!decodedJWT || decodedJWT.userEmail !== user.email) {
         return res.status(401).json({
           error: 'access forbidden',
           responseMessage: 'user credentials do not match - user login unsuccessful'
         });
       }
+      const tokenStatus = `previous user access-token for '${decodedJWT.userEmail}' is expired - access-token and user session has been renewed`;
+      console.log(tokenStatus);
       req.user = {
         userId: decodedJWT.userId,
         userEmail: decodedJWT.userEmail,
-        renewedAccessToken: accessToken
+        tokenStatus,
+        renewedUserAccessToken: accessToken,
+        renewedUserRefreshToken: refreshToken
       };
       next();
-    }
-    if (error instanceof Error) {
-      return res.status(500).json({
-        responseMessage: 'access denied',
-        error: error.message
-      });
     } else {
       return res.status(500).json({
-        responseMessage: 'access denied',
+        responseMessage: 'unauthorized access',
         error: error
       });
     }

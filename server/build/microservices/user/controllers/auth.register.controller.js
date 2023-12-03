@@ -35,11 +35,11 @@ const registerUser = async (req, res) => {
       const generatedTokens = await generateTokens(user);
       const { refreshToken } = generatedTokens;
       // set refresh token as cookie for authorization purposes
-      res.cookie('TerabyteTechnologies_SecretRefreshToken', refreshToken, {
+      res.cookie('DeecoCommerce_SecretRefreshToken', refreshToken, {
         httpOnly: true,
         secure: true,
         sameSite: 'strict', // Prevent CSRF attacks
-        maxAge: 24 * 60 * 60 * 1000 // 1 days
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
       });
       const { accessToken } = generatedTokens;
       return res.status(201).json({
@@ -52,10 +52,19 @@ const registerUser = async (req, res) => {
     }
   } catch (error) {
     if (error instanceof Error) {
-      return res.status(500).json({
-        responseMessage: 'profile creation failed: please try again',
-        error: error.message
-      });
+      const myErrorString = error.message;
+      if (myErrorString.includes('email_1 dup key: { email:')) {
+        return res.status(400).json({
+          responseMessage: 'duplicate user email detected',
+          error: 'email already exist on another user: please attempt your sign up with a different email'
+        });
+      } else {
+        // Handle other unique index violations as needed
+        return res.status(500).json({
+          responseMessage: 'duplicate key error. Please check your input.',
+          error: error.message
+        });
+      }
     } else {
       return res.status(500).json({
         responseMessage: 'profile creation failed: please try again',

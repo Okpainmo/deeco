@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import MainAppLayout from '../../../components/dashboard/layout/MainAppLayout';
+import MainAppLayout from '../../../components/user-dashboard/layout/MainAppLayout';
 import AccessIcon from '../../../assets/images/access-icon.png';
 import BitcoinIcon from '../../../assets/images/dpic-9.png';
 
