@@ -51,7 +51,9 @@
     "react/self-closing-comp": "off",
     "consistent-return": "off",
     "no-unneeded-ternary": "off",
-    "dot-notation": "off"
+    "dot-notation": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off"
   }
 }
 
