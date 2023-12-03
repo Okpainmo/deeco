@@ -6,9 +6,9 @@ import { createUser } from '../lib/auth.createUser.service.js';
 // import decryptPassword from '../../../utils/decryptPassword.js';
 import type { UserSpecs } from '../schemas/userSchema.zod.js';
 import { validateConfirmPasswordWithRegex, validatePasswordWithRegex } from '../../../utils/validatePasswordWithRegex.js';
+// import { MongoError } from 'mongodb';
 
-// description: Create new user, set refresh-token(cookie), & send access-token(jwt).
-// request: POST
+// description: Create new user, set refresh-token(cookie), & send back relevant data with access-token(jwt).
 // route: "/api/v1/auth/register"
 // access: Public
 
@@ -62,11 +62,11 @@ const registerUser = async (req: Request<{}, registerUserResponseSpecs, UserSpec
       const { refreshToken } = generatedTokens;
 
       // set refresh token as cookie for authorization purposes
-      res.cookie('TerabyteTechnologies_SecretRefreshToken', refreshToken, {
+      res.cookie('DeecoCommerce_SecretRefreshToken', refreshToken, {
         httpOnly: true,
         secure: true,
         sameSite: 'strict', // Prevent CSRF attacks
-        maxAge: 24 * 60 * 60 * 1000 // 1 days
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
       });
 
       const { accessToken } = generatedTokens;
@@ -81,10 +81,20 @@ const registerUser = async (req: Request<{}, registerUserResponseSpecs, UserSpec
     }
   } catch (error) {
     if (error instanceof Error) {
-      return res.status(500).json({
-        responseMessage: 'profile creation failed: please try again',
-        error: error.message
-      });
+      const myErrorString = error.message as string;
+
+      if (myErrorString.includes('email_1 dup key: { email:')) {
+        return res.status(400).json({
+          responseMessage: 'duplicate user email detected',
+          error: 'email already exist on another user: please attempt your sign up with a different email'
+        });
+      } else {
+        // Handle other unique index violations as needed
+        return res.status(500).json({
+          responseMessage: 'duplicate key error. Please check your input.',
+          error: error.message
+        });
+      }
     } else {
       return res.status(500).json({
         responseMessage: 'profile creation failed: please try again',

@@ -1,234 +1,203 @@
-'use client';
-
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
-
-import Header from '../../components/layout/Header';
-import Notification from '../../components/Notification';
+// import Notification from '../../components/Notification';
 import GoggleImage from '../../assets/images/goggle.png';
-import { isValidPassword } from '../../utils/validation';
+// import { isValidPassword } from '../../utils/validation';
+import MobileUser from '../../assets/images/undraw_mobile_user.png';
+import { GlobalContext } from '../../context/GlobalContext';
+import { baseAPI_URL } from '../../config';
+
 // import { FaGoogle } from 'react-icons/fa';
 
 function SignUp() {
   const router = useRouter();
+  const { toggleIsLoggedIn } = useContext(GlobalContext);
 
-  const showToast = () => {
-    toast.custom(
-      (t) => (
-        <Notification toast={t}>
-          <div class="flex flex-col gap-2">
-            <div>
-              <svg
-                width="40"
-                height="40"
-                viewBox="0 0 40 40"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19.9997 36.6667C29.2044 36.6667 36.6663 29.2047 36.6663 20C36.6663 10.7953 29.2044 3.33333 19.9997 3.33333C10.7949 3.33333 3.33301 10.7953 3.33301 20C3.33301 29.2047 10.7949 36.6667 19.9997 36.6667Z"
-                  stroke="#EF5DA8"
-                  strokeWidth="3.33333"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M20 26.6667V20"
-                  stroke="#EF5DA8"
-                  strokeWidth="3.33333"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M20 13.3333H20.0167"
-                  stroke="#EF5DA8"
-                  strokeWidth="3.33333"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <h3 class="text-black text-lg font-bold">
-              An account already exists with the provided email.
-            </h3>
-            <div class="flex py-4 gap-2">
-              <button
-                onClick={() => toast.dismiss(t.id)}
-                type="button"
-                className="inline-flex items-center justify-center bg-white text-[#1519208e] p-3 h-[42px] border border-[#56678968] w-full"
-              >
-                Use a different Email
-              </button>
-              <Link
-                onClick={() => toast.dismiss(t.id)}
-                href="/"
-                className="inline-flex items-center justify-center bg-[#EF5DA8] text-white p-3 h-[42px] w-full"
-              >
-                Login
-              </Link>
-            </div>
-          </div>
-        </Notification>
-      ),
-      {
-        duration: 1000
-      }
-    );
-  };
-
-  const initialFormDataValue = {
-    email: '',
+  const [signUpForm, setSignUpForm] = useState({
     fullName: '',
+    email: '',
     password: '',
     confirmPassword: ''
-  };
+  });
 
-  const initialFormDataSet = {
-    password: false,
-    confirmPassword: false
-  };
-
-  const [formData, setFormData] = useState(initialFormDataValue);
-  const [formError, setFormError] = useState(initialFormDataSet);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-    setFormError(initialFormDataSet);
-  };
-
-  const handleSubmit = async (e) => {
+  async function createUser(e) {
     e.preventDefault();
 
-    if (!isValidPassword(formData.password)) {
-      setFormError((prevFormError) => ({
-        ...prevFormError,
-        password: true
-      }));
+    if (
+      signUpForm.fullName === '' ||
+      signUpForm.email === '' ||
+      signUpForm.password === '' ||
+      signUpForm.confirmPassword === ''
+    ) {
+      toast.error('please fill in all fields', { duration: 3000 });
       return;
     }
 
-    if (formData.password !== formData.confirmPassword) {
-      setFormError((prevFormError) => ({
-        ...prevFormError,
-        confirmPassword: true
-      }));
+    if (signUpForm.password !== signUpForm.confirmPassword) {
+      toast.error('passwords do not match', { duration: 3000 });
       return;
     }
+
+    if (signUpForm.password.length < 8 || signUpForm.confirmPassword.length < 8) {
+      toast.error('passwords must be at least 8 characters', {
+        duration: 3000
+      });
+      return;
+    }
+
+    console.log(signUpForm);
+
+    const toastId = toast.loading('creating account...');
 
     try {
-      const res = await fetch(`https:/deeco-backend-server.onrender.com/api/v1/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          password: formData.password,
-          confirmPassword: formData.confirmPassword
-        })
+      const newUser = await axios.post(
+        `${baseAPI_URL}/api/v1/auth/register`, // this is the endpoint for creating a new user
+        signUpForm,
+        {
+          withCredentials: true
+        }
+      );
+
+      console.log(newUser);
+
+      if (newUser && newUser.data.responseMessage === 'user sign-up/registration successful') {
+        toast.success('account created successfully', {
+          id: toastId,
+          duration: 4000
+        });
+      }
+
+      setSignUpForm({
+        fullName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
       });
 
-      const data = await res.json();
+      localStorage.setItem('userToken', `${newUser.data.response.accessToken}`);
+      localStorage.setItem('userEmail', `${newUser.data.response.user.email}`);
 
-      if (data.response && data.responseMessage === 'profile creation failed: please try again') {
-        showToast();
-      }
+      const userToken = localStorage.getItem('userToken');
+      const userEmail = localStorage.getItem('userEmail');
 
-      if (data.response && data.responseMessage === 'user sign-up/registration successful') {
-        router.push(`/dashboard`);
-      }
-    } catch (e) {
-      throw new Error(e);
+      console.log(userToken, userEmail);
+
+      const userName = newUser.data.response.user.fullName;
+      // console.log(userName);
+      localStorage.setItem('userName', `${userName}`);
+
+      toggleIsLoggedIn();
+
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    } catch (error) {
+      toast.error('error creating user: account creation failed', { id: toastId, duration: 3000 });
+      console.log(error);
     }
-  };
+  }
 
   return (
-    <main className="min-h-screen px-3 py-8">
-      <Header />
-      <div className="border-2 p-6 mt-8 sm:mx-auto sm:w-[450px] lg:w-[1000px]">
-        <div className="login-option-wrapper flex flex-col mb-4 lg:mb-2">
-          <h3 className="capitalize text-black font-bold text-2xl">create your deeco account</h3>
-          <p className="opacity-100 text-md  text-[#171A1FFF]">
+    <main className="min-h-screen px-3 py-8 text-[12px] nunito_sans flex justify-center relative">
+      <div className="lg:flex items-end justify-end mb-2 absolute bottom-[300px] sm:bottom-[100px] left-[100px] z-10">
+        <Image src={MobileUser} alt="page-illustration_user-with-mobile-device" />
+      </div>
+      <div
+        className="w-full xsm:w-[400px] border rounded-sm p-6 pb-10 xsm:p-8 mt-12 md:mt-20 z-20"
+        style={{
+          alignSelf: 'flex-start',
+          boxShadow: 'rgb(238, 240, 249) 0px 0px 20px',
+          backgroundColor: 'rgba(255, 255, 255, .95)'
+        }}
+      >
+        <div className="login-option-wrapper flex flex-col mb-6 mt-4 text-center">
+          <h3 className="capitalize text-2xl poppins font-bold">Deeco/sign-up</h3>
+          <p className="mt-4 text-[14px]">
             Already have an account?{' '}
-            <Link href="/" className="no-underline text-blue-300 font-bold">
+            <Link href="/" className="no-underline text-blue-400 font-bold">
               Sign in
             </Link>
           </p>
         </div>
         <div className="flex flex-col  lg:flex-row w-full">
           <section className="section-one-info w-full">
-            <form className="w-full text-[14px]" onSubmit={handleSubmit}>
-              <div className="input-group for-email mb-5 flex flex-col gap-2">
-                <label
-                  htmlFor="email"
-                  className="flex gap-6 align-center opacity-70 focus-within:text-gray-600 font-bold"
-                >
-                  Email address*
-                </label>
-                <div className="relative">
-                  <input
-                    className="px-4 py-2  text-[#BDC1CAF] placeholder-gray-400 
-                    appearance-none w-full block focus:outline-none border border-[#C2C2C2] rounded-sm h-12"
-                    required
-                    name="email"
-                    value={formData.email}
-                    type="email"
-                    placeholder="Enter email"
-                    id="email"
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
+            <form className="w-full">
               <div className="input-group for-Full-Name mb-5 flex flex-col gap-2">
                 <label
                   htmlFor="fullName"
-                  className="flex gap-6 align-center opacity-70 focus-within:text-gray-600 font-bold"
+                  className="text-gray-600 text-[12px] font-bold poppins pb-1"
                 >
-                  Full Name*
+                  Full Name *
                 </label>
                 <div className="relative">
                   <input
-                    className="px-4 py-2  text-[#BDC1CAF] placeholder-gray-400 
-                    appearance-none w-full block focus:outline-none border border-[#C2C2C2] rounded-sm h-12"
+                    className="bg-gray-50 outline-none px-4 py-3 rounded-sm border border-gray-400 w-full"
                     required
                     name="fullName"
-                    value={formData.fullName}
+                    value={signUpForm.fullName}
+                    onChange={(e) => {
+                      setSignUpForm({
+                        ...signUpForm,
+                        fullName: e.target.value
+                      });
+                    }}
                     type="text"
                     placeholder="Enter fullname"
                     id="fullName"
-                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className="input-group for-email mb-5 flex flex-col gap-2">
+                <label htmlFor="email" className="text-gray-600 text-[12px] font-bold poppins pb-1">
+                  Email address *
+                </label>
+                <div className="relative">
+                  <input
+                    className="bg-gray-50 outline-none px-4 py-3 rounded-sm border border-gray-400 w-full"
+                    required
+                    name="email"
+                    value={signUpForm.email}
+                    onChange={(e) => {
+                      setSignUpForm({
+                        ...signUpForm,
+                        email: e.target.value
+                      });
+                    }}
+                    type="email"
+                    placeholder="Enter email"
+                    id="email"
                   />
                 </div>
               </div>
               <div className="input-group for-password mb-5 flex flex-col gap-2">
                 <label
                   htmlFor="password"
-                  className="flex gap-6 align-center opacity-70 focus-within:text-gray-600 font-bold"
+                  className="text-gray-600 text-[12px] font-bold poppins pb-1"
                 >
-                  Password*
+                  Password *
                 </label>
                 <div className="relative">
                   <input
-                    className="px-4 py-2  text-[#BDC1CAF] placeholder-gray-400 
-                    appearance-none w-full block focus:outline-none border border-[#C2C2C2] rounded-sm h-12"
+                    className="bg-gray-50 outline-none px-4 py-3 rounded-sm border border-gray-400 w-full"
                     required
                     type="password"
                     name="password"
-                    value={formData.password}
+                    value={signUpForm.password}
+                    onChange={(e) => {
+                      setSignUpForm({
+                        ...signUpForm,
+                        password: e.target.value
+                      });
+                    }}
                     placeholder="Enter password"
                     id="password"
-                    onChange={handleInputChange}
                   />
                 </div>
-                <ul className={`${formError.password ? 'block' : 'hidden'} text-red-500`}>
+                {/* <ul className={`${formError.password ? 'block' : 'hidden'} text-red-500`}>
                   <li>At least one digit/number.</li>
                   <li>At least one lowercase letter.</li>
                   <li>At least one uppercase letter.</li>
@@ -236,37 +205,42 @@ function SignUp() {
                   <li>The total length of the password must be at least 8 characters.</li>
                 </ul>
                 <p className={`${formError.confirmPassword ? 'block' : 'hidden'} text-red-500`}>
-                  Passwords mismattch
-                </p>
+                  Passwords mismatch
+                </p> */}
               </div>
               <div className="input-group for-password mb-5 flex flex-col gap-2">
                 <label
                   htmlFor="password"
-                  className="flex gap-6 align-center opacity-70 focus-within:text-gray-600 font-bold"
+                  className="text-gray-600 text-[12px] font-bold poppins pb-1"
                 >
-                  Confirm Password*
+                  Confirm Password *
                 </label>
                 <div className="relative">
                   <input
-                    className="px-4 py-2  text-[#BDC1CAF] placeholder-gray-400 
-                    appearance-none w-full block focus:outline-none border border-[#C2C2C2] rounded-sm h-12"
+                    className="bg-gray-50 outline-none px-4 py-3 rounded-sm border border-gray-400 w-full"
                     required
                     type="password"
                     name="confirmPassword"
-                    value={formData.confirmPassword}
+                    value={signUpForm.confirmPassword}
+                    onChange={(e) => {
+                      setSignUpForm({
+                        ...signUpForm,
+                        confirmPassword: e.target.value
+                      });
+                    }}
                     placeholder="Confirm password"
                     id="confirmPassword"
-                    onChange={handleInputChange}
                   />
                 </div>
-                <p className={`${formError.confirmPassword ? 'block' : 'hidden'} text-red-500`}>
+                {/* <p className={`${formError.confirmPassword ? 'block' : 'hidden'} text-red-500`}>
                   Passwords mismattch
-                </p>
+                </p> */}
               </div>
               <div className="submit-button-wrapper mb-3">
                 <button
                   type="submit"
-                  className="w-full px-4 submit bg-pink-400 py-3 font-bold poppins rounded text-[0.9rem] text-white capitalize"
+                  onClick={createUser}
+                  className="bg-[#EF5DA8] text-[16px] poppins font-bold text-white w-[100%] py-3 px-4 shadow-md mt-6 mb-6"
                 >
                   sign up
                 </button>
@@ -275,33 +249,18 @@ function SignUp() {
             <div className="alternative-sign-up-introduction">
               <div className="inline-flex items-center justify-center w-full">
                 <div
-                  className=" before:w-[70px] before:h-[1px] before:bg-gray-400 before:inline-block before:translate-y-2 text-[#6F7787FF] font-bold flex 
-                  justify-center  after:w-[70px] after:h-[1px] after:bg-gray-400 after:inline-block after:translate-y-2"
+                  className=" before:w-[70px] before:h-[1px] before:bg-gray-400 before:inline-block before:translate-y-2 before:mr-3 after:ml-3 text-[#6F7787FF] font-bold flex
+                  justify-center after:w-[70px] after:h-[1px] after:bg-gray-400 after:inline-block after:translate-y-2"
                 >
                   <div className="px-[4px] sm:px-1 text-[8px] text-xs">or continue with</div>
                 </div>
               </div>
               <div className="flex justify-center mt-5">
                 <Link href="/log-in" className="no-underline text-blue-300 font-bold">
-                  <Image src={GoggleImage} alt="goggle" className="block h-10 w-10" />
+                  <Image src={GoggleImage} alt="goggle" className="block w-[30px]" />
                 </Link>{' '}
               </div>
             </div>
-          </section>
-          <div className="hidden lg:block mx-10 border-l border-gray-500 h-96" />
-          <section className="section-two-info hidden lg:block ">
-            <h2 className="text-black text-lg font-bold">Join thousand of users!</h2>
-            <p className="mb-4">
-              Deeco is your e-commerce store builder to sell any kind of digital products or
-              services to anyone anywhere in the world, with various payments options including
-              <span className="text-pink-400"> blockchain</span>{' '}
-            </p>
-            <ul className="list-disc ml-10">
-              <li className="mb-2">Easy storee setup</li>
-              <li className="mb-2">Buy and sell with crypto and any other fiat currency</li>
-              <li className="mb-2">Create landing and sell pages</li>
-              <li className="mb-2">Dashboard analytics</li>
-            </ul>
           </section>
         </div>
       </div>

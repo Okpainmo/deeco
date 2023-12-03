@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { doc, collection, addDoc, getDocs, updateDoc, setDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
-import { CartContext } from '../context/CartContext';
-import { ContractContext } from '../context/ContractContext';
+import { db } from '../../firebaseConfig';
+import { CartContext } from '../../context/CartContext';
+import { ContractContext } from '../../context/ContractContext';
 // import testPic from '../assets/images/dpic-1.jpg';
 
 function ProductItem({ product }) {
