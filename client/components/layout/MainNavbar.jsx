@@ -22,18 +22,18 @@ function MainNavbar({ showMobileNav }) {
       </Link>
       <Navlinks />
       <div className="hidden lg:inline-flex items-center text-base font-blod">
-        <button
-          type="button"
+        <Link
+          href="/"
           className="inline-flex place-items-center h-[2.3rem] bg-transparent text-[#000000] p-[10px]"
         >
           Login
-        </button>
-        <button
-          type="button"
+        </Link>
+        <Link
+          href="/sign-up"
           className="inline-flex place-items-center h-[2.3rem] bg-[#EF5DA8] text-white p-[10px]"
         >
           Start selling
-        </button>
+        </Link>
       </div>
       <aside className="flex lg:hidden gap-4 lg:gap-0 items-center">
         {/* <DynamicThemeSwitcher /> */}
