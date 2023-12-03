@@ -20,7 +20,7 @@ This file is to serve as a temporary API documentation for the Deeco Project(POC
 
 ## End Points.
 
-Eight(8) end-points are currently active.
+Eight(9) end-points are currently active.
 
 ### 1. The Base Route.
 
@@ -231,6 +231,27 @@ Eight(8) end-points are currently active.
 // route: '/api/v1/store/get-all-store-data';
 
 // access: Private and Internal
+
+- Requires 2(two) request headers: 
+
+1. The authorization header(in the regular "Bearer token" format).
+2. An email header containing the user email
+
+- Sets 1(one) Cookie(the refresh-token).
+
+**No Direct User Request Data - Except the Headers Data**
+
+### 8. Get All User Store Data (By Id)
+
+> /api/v1/store/get-all-store-data
+
+// description: get general user store data(user profile, store and all products), and send back relevant data as response.
+
+// request: GET
+
+// route: '/api/v1/store/get-all-store-data';
+
+// access: Public - not ideal, but we're almost out of time in the hackathon
 
 - Requires 2(two) request headers: 
 

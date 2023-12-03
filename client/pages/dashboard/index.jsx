@@ -1,7 +1,7 @@
-import MainAppLayout from '../../components/dashboard/layout/MainAppLayout';
+// import MainAppLayout from '../../components/dashboard/layout/MainAppLayout';
 
-function UserDashboard() {
-  return <MainAppLayout>Hello</MainAppLayout>;
-}
+// function UserDashboard() {
+//   return <MainAppLayout>Hello</MainAppLayout>;
+// }
 
-export default UserDashboard;
+// export default UserDashboard;

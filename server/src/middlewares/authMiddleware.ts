@@ -88,7 +88,7 @@ const authMiddleware = async (req: Request, res: Response<ResponseSpecs>, next: 
         const { refreshToken, accessToken } = generatedTokens;
 
         const tokenStatus = `user access-token and user session for '${decodedJWT.userEmail}' has been renewed`;
-        console.log(tokenStatus);
+        // console.log(tokenStatus);
 
         req.user = {
           userId: decodedJWT.userId,

@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { ContractContext } from '../../context/ContractContext';
+import { ContractContext } from '../../../context/ContractContext';
 import NavGroup from './NavGroup';
-import Footer from './Footer';
+import Footer from '../../layout/Footer';
 import MobileMenuBar from './MobileMenuBar';
 
 function MainAppLayout({ children }) {

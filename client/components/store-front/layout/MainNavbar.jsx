@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import Navlinks from './Navlinks';
-import { GlobalContext } from '../../context/GlobalContext';
+import { GlobalContext } from '../../../context/GlobalContext';
 
 // import NavPopOver from '../NavPopOver';
 
@@ -14,7 +14,7 @@ function MainNavbar({ showMobileNav }) {
   const { isLoggedIn } = useContext(GlobalContext);
 
   return (
-    <nav className="w-full py-2 px-3 sm:px-8 lg:px-20 xl:px-20 items-center montserrat flex justify-between text-[12px] nunito_sans">
+    <nav className="w-full py-2 px-3 sm:px-8 lg:px-28 items-center montserrat flex justify-between text-[12px] nunito_sans">
       <section className="w-[25%]">
         <Link href="/">
           <div className="w-[80px] brand--colors italic text--colors_default montserrat text-[16px] px-2 border-[3px] text-center">
@@ -22,7 +22,7 @@ function MainNavbar({ showMobileNav }) {
           </div>
         </Link>
       </section>
-      <section className="w-[50%] flex items-center justify-center">
+      <section className="hidden w-[50%] items-center justify-center">
         <Navlinks />
       </section>
       <section className="w-[25%] flex flex-row-reverse gap-4 items-center">

@@ -2,14 +2,21 @@ import React, { useState, useEffect, useContext } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { doc, collection, addDoc, getDocs, updateDoc, setDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
-import { CartContext } from '../context/CartContext';
-import { ContractContext } from '../context/ContractContext';
+import { db } from '../../firebaseConfig';
+import { CartContext } from '../../context/CartContext';
+import { ContractContext } from '../../context/ContractContext';
+import { dummyProductImage } from '../../assets/images/dummyProductImage.png';
 // import testPic from '../assets/images/dpic-1.jpg';
 
 function ProductItem({ product }) {
-  const { category, image, title, description, price } = product;
-  const minifiedPrice = price / 100;
+  const {
+    productName,
+    productDescription,
+    productPriceInUSD,
+    productId: _id,
+    sellerId: createdBy
+  } = product;
+  const minifiedPrice = productPriceInUSD / 100;
   const realPrice = Number(minifiedPrice.toFixed(3));
   const [item, setItem] = useState([]);
   const { connectionStatus } = useContext(ContractContext);
@@ -22,16 +29,17 @@ function ProductItem({ product }) {
     //  price is minified so that I can be able to test payments with small amount of matic tokens
 
     const cartItem = {
-      itemName: title,
-      itemDescription: description,
-      itemCategory: category,
+      itemName: productName,
+      itemDescription: productDescription,
+      // itemCategory: category,
       itemPrice: realPrice,
-      itemImage: image
+      itemImage: dummyProductImage
       // quantity: '',
       // total: ''
     };
+
     setItem([cartItem]);
-  }, [category, image, title, description, realPrice]);
+  }, [productDescription, productName, realPrice]);
 
   async function cartHandler() {
     const userWalletAddress = await window.ethereum.request({ method: 'eth_accounts' });
@@ -53,14 +61,20 @@ function ProductItem({ product }) {
       style={{ boxShadow: '0 0 15px 2px rgb(0 0 0 / 5%)' }}
     >
       <div className="product-details min-h-[400px]">
-        <div className="product-category text-[14px] text-right mb-6 font-bold">{category}</div>
+        <div className="product-category text-[14px] text-right mb-6 font-bold">category</div>
         <div className="product-image-wrapper w-full min-h-[180px] flex items-center">
-          <Image src={image} width={100} height={100} alt="text-pic" className="mx-auto" />
+          <Image
+            src={dummyProductImage}
+            width={100}
+            height={100}
+            alt="text-pic"
+            className="mx-auto"
+          />
         </div>
         <div className="product-name text-[18px] font-bold mt-3 montserrat min-h-[60px] flex items-center">
-          {title.length > 50 ? `${title.slice(0, 50)}...` : title}
+          {productName.length > 50 ? `${productName.slice(0, 50)}...` : productName}
         </div>
-        <div className="product-description mt-2 text-[13px]">{`${description.slice(
+        <div className="product-description mt-2 text-[13px]">{`${productDescription.slice(
           0,
           80
         )}...`}</div>

@@ -1,11 +1,11 @@
 import React from 'react';
 import MainNavbar from './MainNavbar';
-import AppStickyNavbar from './AppStickyNavbar';
+import StoreFrontStickyNavbar from './StoreFrontStickyNavbar';
 
 function NavGroup({ showMobileNav }) {
   return (
     <>
-      <AppStickyNavbar />
+      <StoreFrontStickyNavbar />
       <MainNavbar showMobileNav={showMobileNav} />
     </>
   );
