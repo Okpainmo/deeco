@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 import MainAppLayout from '../../components/layout/MainAppLayout';
 import ThemeCard from './components/theme-card';
@@ -179,12 +180,12 @@ function LandingPage() {
             <p className="max-w-[45ch] text-black text-xl">
               Create your Account in just few minutes and Start Earning today!
             </p>
-            <button
-              type="button"
+            <Link
+              href="/sign-up"
               className="p-[9px] bg-[#EB4899] text-base text-white font-bold w-[13.5rem] "
             >
               Start your journey
-            </button>
+            </Link>
           </div>
         </div>
       </section>
