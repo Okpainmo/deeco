@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
-import MainAppLayout from '../../components/layout/MainAppLayout';
+import MainAppLayout from '../../components/store-front/layout/MainAppLayout';
 import { CartContext } from '../../context/CartContext';
 
 function OrderStatus() {
