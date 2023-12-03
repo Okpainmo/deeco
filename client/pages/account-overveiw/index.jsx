@@ -2,7 +2,7 @@ import Image from 'next/image';
 import AccountNav from '../../components/AccountNav';
 import EditIcon from '../../assets/images/edit-icon.png';
 import EditIconCopy from '../../assets/images/edit-icon-1.png';
-import MainAppLayout from '../../components/dashboard/layout/MainAppLayout';
+import MainAppLayout from '../../components/user-dashboard/layout/MainAppLayout';
 
 function AccountOverView() {
   return (

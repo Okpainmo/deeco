@@ -2,7 +2,7 @@ import Image from 'next/image';
 import AccountNav from '../../components/AccountNav';
 import shoeImage from '../../assets/images/dpic-18.png';
 import MoreIcon from '../../assets/images/more-img.png';
-import MainAppLayout from '../../components/layout/MainAppLayout';
+import MainAppLayout from '../../components/user-dashboard/layout/MainAppLayout';
 
 function AccountOverView() {
   return (
