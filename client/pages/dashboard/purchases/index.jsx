@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 import MainAppLayout from '../../../components/user-dashboard/layout/MainAppLayout';
-import OrderCard from './components/order-card';
 
 import Mock_1 from '../../../assets/images/mock-1.png';
 import Mock_2 from '../../../assets/images/mock-2.png';
@@ -43,24 +44,62 @@ function Purchases() {
               <> </>
             ) : (
               <>
-                <OrderCard
-                  orderImage={Mock_1}
-                  orderTitle="Big Sneakers"
-                  orderId="230912892"
-                  orderSize="42"
-                  orderDate="27-2023"
-                  orderLinkUrl="/"
-                  orderStatus="delivered"
-                />
-                <OrderCard
-                  orderImage={Mock_2}
-                  orderTitle="Big Sneakers"
-                  orderId="230912892"
-                  orderSize="42"
-                  orderDate="27-2023"
-                  orderLinkUrl="/"
-                  orderStatus="pending"
-                />
+                <div className="flex items-stretch justify-between w-full p-[1.125rem] border border-[#E0E0E0]">
+                  <div className="inline-flex items-center gap-6">
+                    <div className="w-[6.25rem] h-[6.25rem]">
+                      <Image src={Mock_1} alt="order-image" className="object-cover" />
+                    </div>
+                    <div className="inline-flex flex-col gap-1">
+                      <h5 className="text-base font-bold text-[#1E1E1E]">Big Sneakers</h5>
+                      <p className="text-xs text-[#666666]">
+                        Order <span>230912892</span>
+                      </p>
+                      <p className="text-xs text-[#666666]">
+                        Size (UK): <span>230912892</span>
+                      </p>
+                      <p className="inline-flex gap-2 font-bold text-sm text-[#1E1E1E]">
+                        <span>on-27-2023</span>
+                        <span className="text-[#D9D9D9]">|</span>
+                        <span> 2d </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <Link href="/" className="text-xs text-[#1E1E1E] font-bold underline">
+                      See details
+                    </Link>
+                    <p className="mt-auto text-xs text-white font-bold py-[5px] px-[10px] bg-[#6DBD28]">
+                      Delivered
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-stretch justify-between w-full p-[1.125rem] border border-[#E0E0E0]">
+                  <div className="inline-flex items-center gap-6">
+                    <div className="w-[6.25rem] h-[6.25rem]">
+                      <Image src={Mock_2} alt="order-image" className="object-cover" />
+                    </div>
+                    <div className="inline-flex flex-col gap-1">
+                      <h5 className="text-base font-bold text-[#1E1E1E]">Big Sneakers</h5>
+                      <p className="text-xs text-[#666666]">
+                        Order <span>230912892</span>
+                      </p>
+                      <p className="text-xs text-[#666666]">
+                        Size (UK): <span>230912892</span>
+                      </p>
+                      <p className="inline-flex gap-2 font-bold text-sm text-[#1E1E1E]">
+                        <span>27-2023</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <Link href="/" className="text-xs text-[#1E1E1E] font-bold underline">
+                      See details
+                    </Link>
+                    <p className="mt-auto text-xs text-white font-bold py-[5px] px-[10px] bg-[#61A5FA]">
+                      Pending
+                    </p>
+                  </div>
+                </div>
               </>
             )}
           </div>
