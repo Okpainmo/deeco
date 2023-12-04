@@ -77,6 +77,7 @@ Eight(9) end-points are currently active.
 ```
 
 ### 3. Log In User.
+
 > /api/v1/auth/log-in
 
 // description: Authenticate user, set refresh-token(cookie), & send back relevant data with access-token(jwt).
@@ -133,7 +134,7 @@ Eight(9) end-points are currently active.
 
 // access: Private & Internal
 
-- Requires 2(two) request headers: 
+- Requires 2(two) request headers:
 
 1. The authorization header(in the regular "Bearer token" format).
 2. An email header containing the user email
@@ -154,7 +155,7 @@ Eight(9) end-points are currently active.
 
 // access: Private and Internal
 
-- Requires 2(two) request headers: 
+- Requires 2(two) request headers:
 
 1. The authorization header(in the regular "Bearer token" format).
 2. An email header containing the user email
@@ -165,8 +166,8 @@ Eight(9) end-points are currently active.
 
 ```json
 {
-    "storeName": "Emma's Tech Place",
-    "storeDescription": "A beautiful store for Emmanuel's tech stuffs - I wonder what being a dev seller lorem ipsom some naturn"
+  "storeName": "Emma's Tech Place",
+  "storeDescription": "A beautiful store for Emmanuel's tech stuffs - I wonder what being a dev seller lorem ipsom some naturn"
 }
 ```
 
@@ -182,7 +183,7 @@ Eight(9) end-points are currently active.
 
 // access: Private and Internal
 
-- Requires 2(two) request headers: 
+- Requires 2(two) request headers:
 
 1. The authorization header(in the regular "Bearer token" format).
 2. An email header containing the user email
@@ -203,7 +204,7 @@ Eight(9) end-points are currently active.
 
 // access: Private and Internal
 
-- Requires 2(two) request headers: 
+- Requires 2(two) request headers:
 
 1. The authorization header(in the regular "Bearer token" format).
 2. An email header containing the user email
@@ -214,9 +215,9 @@ Eight(9) end-points are currently active.
 
 ```json
 {
-    "productName": "testing name 3",
-    "productDescription": "testing description 4",
-    "productPriceInUSD": "45" // they add price in USD, then we convert to all other currencies for them
+  "productName": "testing name 3",
+  "productDescription": "testing description 4",
+  "productPriceInUSD": "45" // they add price in USD, then we convert to all other currencies for them
 }
 ```
 
@@ -232,7 +233,7 @@ Eight(9) end-points are currently active.
 
 // access: Private and Internal
 
-- Requires 2(two) request headers: 
+- Requires 2(two) request headers:
 
 1. The authorization header(in the regular "Bearer token" format).
 2. An email header containing the user email
@@ -253,7 +254,7 @@ Eight(9) end-points are currently active.
 
 // access: Public - not ideal, but we're almost out of time in the hackathon
 
-- Requires 2(two) request headers: 
+- Requires 2(two) request headers:
 
 1. The authorization header(in the regular "Bearer token" format).
 2. An email header containing the user email
