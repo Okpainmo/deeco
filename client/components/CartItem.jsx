@@ -6,7 +6,7 @@ import { db } from '../firebaseConfig';
 import { CartContext } from '../context/CartContext';
 import { ContractContext } from '../context/ContractContext';
 import testPic from '../assets/images/dpic-1.jpg';
-import ProductItem from './ProductItem';
+import ProductItem from './store-front/ProductItem';
 // import { ContractContext } from '../context/ContractContext';
 
 function CartItem({ product }) {

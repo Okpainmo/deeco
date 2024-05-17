@@ -14,9 +14,9 @@ function Footer() {
             </div>
           </Link>
           <div className="brand-brief text-[12px] mt-3 sm:mt-4 leading-[25px]">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque quas laborum
-            pariatur distinctio, amet illo repellat dolor porro dolorem natus in quasi delectus
-            tempore itaque asperiores rem facilis ratione ipsum.
+            Deeco is your e-commerce store builder to sell any kind of digital product or service to
+            anyone, anywhere in the world. with various payment options including <br />
+            <span className="text-[#EF5DA8]"> block-chain! </span>
           </div>
           <div className="mt-3 md:mt-6">
             <Socials />
@@ -28,30 +28,12 @@ function Footer() {
               <h4 className="text--dark font-bold text-base">Services</h4>
               <ul className="flex flex-col gap-y-3 pt-4 text-[12px]">
                 <li>Crypto</li>
-                <li>Forex</li>
-                <li>Stocks</li>
-                <li>Exchange</li>
-              </ul>
-            </div>
-            <div className="min-h-[180px]">
-              <h4 className="text--dark font-bold text-base">Services</h4>
-              <ul className="flex flex-col gap-y-3 pt-4 text-[12px]">
-                <li>Crypto</li>
-                <li>Forex</li>
-                <li>Stocks</li>
-                <li>Exchange</li>
+                <li>E-commerce</li>
+                <li>Digital Product</li>
               </ul>
             </div>
           </section>
           <section className="flex flex-col gap-6">
-            <div className="min-h-[180px]">
-              <h4 className="text--dark font-bold text-base">Help</h4>
-              <ul className="flex flex-col gap-y-3 pt-4 text-[12px]">
-                <li>FAQs</li>
-                <li>Security</li>
-                <li>Contact us</li>
-              </ul>
-            </div>
             <div className="min-h-[180px]">
               <h4 className="text--dark font-bold text-base">Help</h4>
               <ul className="flex flex-col gap-y-3 pt-4 text-[12px]">
@@ -73,12 +55,6 @@ function Footer() {
           </section>
         </section>
         <NewsletterSection />
-      </section>
-      <section className="mt-12 text-center text--colors_secondary text-[14px]">
-        APIs by{' '}
-        <a href="https://fakestoreapi.com/" className="text--colors_primary">
-          fakestoreapi
-        </a>
       </section>
     </footer>
   );
