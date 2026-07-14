@@ -25,105 +25,53 @@ function MobileMenuBar({ hideMobileNav, closeMobileNav }) {
       <div className="flex flex-col gap-y-6 text-2xl font-bold text-left min-h-[500px] border-b w-full pb-10">
         <Link
           onClick={hideMobileNav}
-          href="/all-products"
+          href="/"
           className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
         >
-          <div className="flex gap-2 items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
-              />
-            </svg>
-
-            <span>All products</span>
-          </div>
+          <span>How its Work</span>
         </Link>
         <Link
           onClick={hideMobileNav}
-          href="/all-products"
+          href="/"
           className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
         >
-          <span>Today's deals</span>
+          <span>Pricing</span>
         </Link>
         <Link
           onClick={hideMobileNav}
-          href="/all-products"
+          href="/"
           className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
         >
-          <span>Electronics</span>
+          <span>Features</span>
         </Link>
         <Link
           onClick={hideMobileNav}
-          href="/all-products"
+          href="/"
           className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
         >
-          <span>Accessories</span>
+          <span>Create Store</span>
         </Link>
         <Link
           onClick={hideMobileNav}
-          href="/all-products"
+          href="/"
           className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
         >
-          <span>Deeco fashion</span>
+          <span>Buy Themes</span>
         </Link>
-        <Link
-          onClick={hideMobileNav}
-          href="/all-products"
-          className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
-        >
-          <span>Home and kitchen</span>
-        </Link>
-        <Link
-          onClick={hideMobileNav}
-          href="/all-products"
-          className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
-        >
-          <span>Books and media</span>
-        </Link>
-        <Link
-          onClick={hideMobileNav}
-          href="/all-productst"
-          className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
-        >
-          <span>Office and school supplies</span>
-        </Link>
-        <Link
-          onClick={hideMobileNav}
-          href="/all-products"
-          className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
-        >
-          <span>Sports and fitness</span>
-        </Link>
-        <Link
-          onClick={hideMobileNav}
-          href="/all-products"
-          className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
-        >
-          <span>Automotive</span>
-        </Link>
-        <Link
-          onClick={hideMobileNav}
-          href="/all-products"
-          className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
-        >
-          <span>Agriculture</span>
-        </Link>
-        <Link
-          onClick={hideMobileNav}
-          href="/all-products"
-          className="min-w-[100px] hover:tracking-[1px] transition-all duration-700 w-[80%]"
-        >
-          <span>Groceries</span>
-        </Link>
+        <div className="flex flex-col gap-3 w-fit mt-4">
+          <Link
+            href="/"
+            className="inline-flex place-items-center h-[2.3rem] bg-transparent text-[#000000] p-[10px]"
+          >
+            Login
+          </Link>
+          <Link
+            href="/sign-up"
+            className="inline-flex place-items-center h-[2.3rem] bg-[#EF5DA8] text-white p-[10px]"
+          >
+            Start selling
+          </Link>
+        </div>
       </div>
       <div className="pt-8 pb-8 border-b gap-6 sm:gap-12 flex flex-col sm:flex-row sm:items-center">
         <Socials />

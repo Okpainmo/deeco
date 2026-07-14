@@ -5,6 +5,20 @@ module.exports = {
 
 module.exports = {
   images: {
-    domains: ['fakestoreapi.com']
+    remotePatterns: [
+      {
+        hostname: 'fakestoreapi.com'
+      },
+      {
+        hostname: 'journie-users-profile-image-bucket.s3.eu-north-1.amazonaws.com'
+      }
+    ]
   }
 };
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'standalone'
+};
+
+module.exports = nextConfig;
